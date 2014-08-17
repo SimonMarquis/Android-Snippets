@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Android Snippets by SimonMarquis</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Android Snippets</h1>
+        <p>Snippets for Android developers</p>
+        <p class="view"><a href="https://github.com/SimonMarquis/Android-Snippets">View the Project on GitHub <small>SimonMarquis/Android-Snippets</small></a></p>
+        <ul>
+          <li><a href="https://github.com/SimonMarquis/Android-Snippets/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/SimonMarquis/Android-Snippets/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/SimonMarquis/Android-Snippets">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <ul>
+<li>
+<a href="#adb-android-debug-bridge">ADB</a>
+
+<ul>
+<li><a href="#list-of-devices">list of devices</a></li>
+<li><a href="#screen-capture">screen capture</a></li>
+<li><a href="#screen-record">screen record</a></li>
+<li><a href="#run-monkey">run monkey</a></li>
+<li><a href="#sqlite">sqlite</a></li>
+<li><a href="#handy-commands">handy commands</a></li>
+</ul>
+</li>
+</ul><h2>
+<a name="adb-android-debug-bridge" class="anchor" href="#adb-android-debug-bridge"><span class="octicon octicon-link"></span></a>ADB (Android Debug Bridge)</h2>
+
+<h3>
+<a name="list-of-devices" class="anchor" href="#list-of-devices"><span class="octicon octicon-link"></span></a>list of devices</h3>
+
+<div class="highlight highlight-bash"><pre><span class="c">#!/bin/bash</span>
+<span class="k">if</span> <span class="o">[[</span> ! <span class="nv">$PATH_TO_ADB</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nv">PATH_TO_ADB</span><span class="o">=</span><span class="sb">`</span>which adb<span class="sb">`</span>
+<span class="k">fi</span>
+
+<span class="k">if</span> <span class="o">[[</span> ! <span class="nv">$PATH_TO_ADB</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="k">if</span> <span class="o">[[</span> ! <span class="nv">$ANDROID_HOME</span> <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">"Failed to determine path to adb; consider setting ANDROID_HOME to your SDK directory or PATH_TO_ADB to the path to ADB"</span>
+        <span class="nb">exit </span>1
+    <span class="k">fi</span>
+    <span class="nv">PATH_TO_ADB</span><span class="o">=</span><span class="s2">"$ANDROID_HOME/platform-tools/adb"</span>
+<span class="k">fi</span>
+
+<span class="nv">devices</span><span class="o">=</span><span class="sb">`</span><span class="nv">$PATH_TO_ADB</span> devices <span class="p">|</span> grep -E <span class="s2">"device\$"</span> <span class="p">|</span> cut -f1<span class="sb">`</span>
+
+<span class="k">for</span> device in <span class="nv">$devices</span><span class="p">;</span> <span class="k">do</span>
+    <span class="nv">model</span><span class="o">=</span><span class="k">$(</span><span class="nv">$PATH_TO_ADB</span> -s <span class="nv">$device</span> shell getprop ro.product.model <span class="p">|</span> tr -d <span class="s1">'\r'</span><span class="k">)</span>
+    <span class="nv">version</span><span class="o">=</span><span class="k">$(</span><span class="nv">$PATH_TO_ADB</span> -s <span class="nv">$device</span> shell getprop ro.build.version.release <span class="p">|</span> tr -d <span class="s1">'\r'</span><span class="k">)</span>
+    <span class="nv">sdk</span><span class="o">=</span><span class="k">$(</span><span class="nv">$PATH_TO_ADB</span> -s <span class="nv">$device</span> shell getprop ro.build.version.sdk <span class="p">|</span> tr -d <span class="s1">'\r'</span><span class="k">)</span>
+
+    <span class="nb">printf</span> <span class="s1">'%-20s [%5s ~ %2s]: %-20s \n'</span> <span class="s2">"$device"</span> <span class="s2">"$version"</span> <span class="s2">"$sdk"</span> <span class="s2">"$model"</span>
+<span class="k">done</span>
+</pre></div>
+
+<h3>
+<a name="screen-capture" class="anchor" href="#screen-capture"><span class="octicon octicon-link"></span></a>screen capture</h3>
+
+<div class="highlight highlight-bash"><pre><span class="nv">name</span><span class="o">=</span><span class="s2">"/sdcard/`date +%Y.%m.%d\ -\ %H.%M.%S`.png"</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    adb shell screencap -p <span class="nv">$name</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    adb pull <span class="nv">$name</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    adb shell rm <span class="nv">$name</span>
+</pre></div>
+
+<h3>
+<a name="screen-record" class="anchor" href="#screen-record"><span class="octicon octicon-link"></span></a>screen record</h3>
+
+<ul>
+<li>
+<strong>bit rate</strong>  <code>--bit-rate &lt;rate&gt;</code>
+</li>
+<li>
+<strong>size</strong>  <code>--size &lt;widthXheight&gt;</code>
+</li>
+<li>
+<strong>time limit</strong>  <code>--time-limit &lt;time&gt;</code>
+</li>
+</ul><div class="highlight highlight-bash"><pre><span class="nv">name</span><span class="o">=</span><span class="s2">"/sdcard/`date +%Y.%m.%d\ -\ %H.%M.%S`.mp4"</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    adb shell screenrecord --bit-rate <span class="m">20000000</span> --time-limit <span class="m">30</span> <span class="nv">$name</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    adb pull <span class="nv">$name</span> <span class="o">&amp;&amp;</span> <span class="se">\</span>
+    adb shell rm <span class="nv">$name</span>
+</pre></div>
+
+<h3>
+<a name="run-monkey" class="anchor" href="#run-monkey"><span class="octicon octicon-link"></span></a>run monkey</h3>
+
+<ul>
+<li>
+<strong>verbose</strong>  <code>-v</code>
+</li>
+<li>
+<strong>package name</strong>  <code>-p &lt;your.package.name&gt;</code>
+</li>
+<li>
+<strong>throttling</strong>  <code>--throttle &lt;milliseconds&gt;</code>
+</li>
+</ul><div class="highlight highlight-bash"><pre>adb shell monkey -p your.package.name -v 500
+</pre></div>
+
+<h3>
+<a name="sqlite" class="anchor" href="#sqlite"><span class="octicon octicon-link"></span></a>sqlite</h3>
+
+<div class="highlight highlight-bash"><pre>adb shell
+<span class="nv">$ </span>sqlite3 /data/data/your.package.name/databases/your-database.db
+    SQLite version 3.3.12
+    Enter <span class="s2">".help"</span> <span class="k">for</span> instructions
+    .... enter commands, <span class="k">then</span> quit...
+sqlite&gt; .exit 
+</pre></div>
+
+<h3>
+<a name="handy-commands" class="anchor" href="#handy-commands"><span class="octicon octicon-link"></span></a>handy commands</h3>
+
+<div class="highlight highlight-bash"><pre><span class="c"># install apk</span>
+adb install -r app.apk
+
+<span class="c"># uninstall apk</span>
+adb uninstall your.package.name
+
+<span class="c"># start activity</span>
+adb shell am start -n your.package.name/.YourActivity
+
+<span class="c"># start scheme intent</span>
+adb shell am start -W -a android.intent.action.VIEW -d <span class="s2">"yourscheme://something"</span> your.package.name
+
+<span class="c"># installed packages</span>
+adb shell pm list packages -f
+</pre></div>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/SimonMarquis">SimonMarquis</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-26219014-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
