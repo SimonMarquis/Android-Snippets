@@ -15,6 +15,12 @@ Android Snippets
     * [pulse](#pulse)
     * [spring](#spring)
     * [tada](#tada)
+  * [Application](#application)
+    * [application name](#applicatio-nname)
+    * [version name](#version-name)
+    * [version code](#version-code)
+    * [kill background processes](#kill-background-processes)
+    * [restart](#restart)
 
 
 ADB (Android Debug Bridge)
@@ -182,5 +188,72 @@ public static ObjectAnimator tada(View view, float shakeFactor) {
             Keyframe.ofFloat(1f, 0));
 
     return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY, pvhRotate).setDuration(1000);
+}
+```
+
+Application
+-----------
+
+### application name
+
+```java
+public static String getApplicationName(Context context) {
+    try {
+        return context.getString(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.labelRes);
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to get application name", e);
+        return null;
+    }
+}
+```
+
+### version name
+
+```java
+public static String getVersionName(Context context) {
+	try {
+		return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+	} catch (Exception e) {
+		Log.e(TAG, "Failed to get application version number", e);
+		return null;
+	}
+}
+```
+
+### version code
+
+```java
+public static String getVersionCode(Context context) {
+	try {
+		return Integer.toString(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode);
+	} catch (Exception e) {
+		Log.e(TAG, "Failed to get application version code", e);
+		return null;
+	}
+}
+```
+
+### kill background processes
+
+```xml
+<uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+```
+
+```java
+public static void killBackgroundProcesses(Context context, String packageName) {
+	((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).killBackgroundProcesses(packageName);
+}
+```
+
+### restart
+
+```java
+public static void restart(Activity activity) {
+	Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
+	intent.setData(activity.getIntent().getData());
+	PendingIntent pi = PendingIntent.getActivity(activity, 1111, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+	AlarmManager mgr = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+	mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pi);
+	android.os.Process.killProcess(android.os.Process.myPid());
 }
 ```
