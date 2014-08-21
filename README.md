@@ -113,6 +113,9 @@ adb shell am start -W -a android.intent.action.VIEW -d "yourscheme://something" 
 
 # installed packages
 adb shell pm list packages -f
+
+# enable CheckJNI (0 to disable)
+adb shell setprop debug.checkjni 1
 ```
 
 
