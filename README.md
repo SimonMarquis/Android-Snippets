@@ -21,6 +21,17 @@ Android Snippets
     * [version code](#version-code)
     * [kill background processes](#kill-background-processes)
     * [restart](#restart)
+  * [Build](#build)
+    * [OS version](#os-version)
+    * [has Cupcake](#has-cupcake)
+    * [has Donut](#has-donut)
+    * [has Eclair](#has-eclair)
+    * [has Froyo](#has-froyo)
+    * [has Gingerbread](#has-gingerbread)
+    * [has Honeycomb](#has-honeycomb)
+    * [has Ice Cream Sandwich](#has-ice-cream-sandwich)
+    * [has Jelly Bean](#has-jelly-bean)
+    * [has KitKat](#has-kitkat)
 
 
 ADB (Android Debug Bridge)
@@ -258,5 +269,88 @@ public static void restart(Activity activity) {
 	AlarmManager mgr = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
 	mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pi);
 	android.os.Process.killProcess(android.os.Process.myPid());
+}
+```
+
+Build
+-----
+
+### OS version
+
+```java
+public static String getOsVersion() {
+    return android.os.Build.VERSION.RELEASE;
+}
+```
+
+### has Cupcake
+
+```java
+public static boolean hasCupcake() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.CUPCAKE;
+}
+```
+
+### has Donut
+
+```java
+public static boolean hasDonut() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.DONUT;
+}
+```
+
+### has Eclair
+
+```java
+public static boolean hasEclair() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ECLAIR;
+}
+```
+
+### has Froyo
+
+```java
+public static boolean hasFroyo() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO;
+}
+```
+
+### has Gingerbread
+
+```java
+public static boolean hasGingerbread() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD;
+}
+```
+
+### has Honeycomb
+
+```java
+public static boolean hasHoneycomb() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB;
+}
+```
+
+### has Ice Cream Sandwich
+
+```java
+public static boolean hasIceCreamSandwich() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+}
+```
+
+### has Jelly Bean
+
+```java
+public static boolean hasJellyBean() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN;
+}
+```
+
+### has KitKat
+
+```java
+public static boolean hasKitKat() {
+    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT;
 }
 ```
