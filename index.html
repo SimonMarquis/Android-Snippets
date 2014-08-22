@@ -62,6 +62,22 @@
 <li><a href="#restart">restart</a></li>
 </ul>
 </li>
+<li>
+<a href="#build">Build</a>
+
+<ul>
+<li><a href="#os-version">OS version</a></li>
+<li><a href="#has-cupcake">has Cupcake</a></li>
+<li><a href="#has-donut">has Donut</a></li>
+<li><a href="#has-eclair">has Eclair</a></li>
+<li><a href="#has-froyo">has Froyo</a></li>
+<li><a href="#has-gingerbread">has Gingerbread</a></li>
+<li><a href="#has-honeycomb">has Honeycomb</a></li>
+<li><a href="#has-ice-cream-sandwich">has Ice Cream Sandwich</a></li>
+<li><a href="#has-jelly-bean">has Jelly Bean</a></li>
+<li><a href="#has-kitkat">has KitKat</a></li>
+</ul>
+</li>
 </ul><h2>
 <a name="adb-android-debug-bridge" class="anchor" href="#adb-android-debug-bridge"><span class="octicon octicon-link"></span></a>ADB (Android Debug Bridge)</h2>
 
@@ -164,6 +180,9 @@ adb shell am start -W -a android.intent.action.VIEW -d <span class="s2">"yoursch
 
 <span class="c"># installed packages</span>
 adb shell pm list packages -f
+
+<span class="c"># enable CheckJNI (0 to disable)</span>
+adb shell setprop debug.checkjni 1
 </pre></div>
 
 <h2>
@@ -304,6 +323,89 @@ adb shell pm list packages -f
     <span class="n">AlarmManager</span> <span class="n">mgr</span> <span class="o">=</span> <span class="o">(</span><span class="n">AlarmManager</span><span class="o">)</span> <span class="n">activity</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">ALARM_SERVICE</span><span class="o">);</span>
     <span class="n">mgr</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">AlarmManager</span><span class="o">.</span><span class="na">RTC</span><span class="o">,</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="mi">100</span><span class="o">,</span> <span class="n">pi</span><span class="o">);</span>
     <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Process</span><span class="o">.</span><span class="na">killProcess</span><span class="o">(</span><span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Process</span><span class="o">.</span><span class="na">myPid</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="build" class="anchor" href="#build"><span class="octicon octicon-link"></span></a>Build</h2>
+
+<h3>
+<a name="os-version" class="anchor" href="#os-version"><span class="octicon octicon-link"></span></a>OS version</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getOsVersion</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-cupcake" class="anchor" href="#has-cupcake"><span class="octicon octicon-link"></span></a>has Cupcake</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasCupcake</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">CUPCAKE</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-donut" class="anchor" href="#has-donut"><span class="octicon octicon-link"></span></a>has Donut</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasDonut</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">DONUT</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-eclair" class="anchor" href="#has-eclair"><span class="octicon octicon-link"></span></a>has Eclair</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasEclair</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">ECLAIR</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-froyo" class="anchor" href="#has-froyo"><span class="octicon octicon-link"></span></a>has Froyo</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasFroyo</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">FROYO</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-gingerbread" class="anchor" href="#has-gingerbread"><span class="octicon octicon-link"></span></a>has Gingerbread</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasGingerbread</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">GINGERBREAD</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-honeycomb" class="anchor" href="#has-honeycomb"><span class="octicon octicon-link"></span></a>has Honeycomb</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasHoneycomb</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">HONEYCOMB</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-ice-cream-sandwich" class="anchor" href="#has-ice-cream-sandwich"><span class="octicon octicon-link"></span></a>has Ice Cream Sandwich</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasIceCreamSandwich</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">ICE_CREAM_SANDWICH</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-jelly-bean" class="anchor" href="#has-jelly-bean"><span class="octicon octicon-link"></span></a>has Jelly Bean</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasJellyBean</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">JELLY_BEAN</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-kitkat" class="anchor" href="#has-kitkat"><span class="octicon octicon-link"></span></a>has KitKat</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasKitKat</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">KITKAT</span><span class="o">;</span>
 <span class="o">}</span>
 </pre></div>
       </section>
