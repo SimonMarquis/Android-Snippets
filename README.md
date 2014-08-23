@@ -322,6 +322,9 @@ public static boolean hasGingerbread() {
     return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD;
 }
 
+public static boolean hasGingerbreadMR1() {
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD_MR1;
+}
 ```
 
 ### has Honeycomb
@@ -329,6 +332,14 @@ public static boolean hasGingerbread() {
 ```java
 public static boolean hasHoneycomb() {
     return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB;
+}
+
+public static boolean hasHoneycombMR1() {
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR1;
+}
+
+public static boolean hasHoneycombMR2() {
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2;
 }
 ```
 
@@ -338,6 +349,10 @@ public static boolean hasHoneycomb() {
 public static boolean hasIceCreamSandwich() {
     return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 }
+
+public static boolean hasIceCreamSandwichMR1() {
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
+}
 ```
 
 ### has Jelly Bean
@@ -345,6 +360,14 @@ public static boolean hasIceCreamSandwich() {
 ```java
 public static boolean hasJellyBean() {
     return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN;
+}
+
+public static boolean hasJellyBeanMR1() {
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1;
+}
+
+public static boolean hasJellyBeanMR2() {
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2;
 }
 ```
 
