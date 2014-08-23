@@ -321,6 +321,7 @@ public static boolean hasFroyo() {
 public static boolean hasGingerbread() {
     return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD;
 }
+
 ```
 
 ### has Honeycomb
