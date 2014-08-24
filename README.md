@@ -32,6 +32,13 @@ Android Snippets
     * [has Ice Cream Sandwich](#has-ice-cream-sandwich)
     * [has Jelly Bean](#has-jelly-bean)
     * [has KitKat](#has-kitkat)
+  * [Device](#device)
+    * [Device name](#device-name)
+    * [SDK version](#sdk-version)
+    * [Phone number](#phone-number)
+    * [has Camera](#has-camera)
+    * [is emulator](#is-emulator)
+    * [](#)
 
 
 ADB (Android Debug Bridge)
@@ -376,5 +383,60 @@ public static boolean hasJellyBeanMR2() {
 ```java
 public static boolean hasKitKat() {
     return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT;
+}
+```
+
+Device
+------
+
+### Device name
+
+```java
+public static String getDeviceName() {
+    String manufacturer = android.os.Build.MANUFACTURER;
+    String model = android.os.Build.MODEL;
+    return model.startsWith(manufacturer) ? model : manufacturer + " " + model;
+}
+```
+
+### SDK version
+
+```java
+public static int getSdkVersion() {
+    try {
+        return android.os.Build.VERSION.class.getField("SDK_INT").getInt(null);
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to get SDK version", e);
+    }
+    return 0;
+}
+```
+
+### Phone number
+
+```xml
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+```
+
+```java
+public static String getPhoneNumber(Context context) {
+    return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
+}
+```
+
+### has Camera
+
+```java
+public static boolean hasCamera(Context context) {
+    PackageManager pm = context.getPackageManager();
+    return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
+}
+```
+
+### is emulator
+
+```java
+public static boolean isEmulator() {
+    return android.os.Build.MODEL.equals("sdk") || android.os.Build.MODEL.equals("google_sdk");
 }
 ```
