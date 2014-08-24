@@ -38,7 +38,6 @@ Android Snippets
     * [Phone number](#phone-number)
     * [has Camera](#has-camera)
     * [is emulator](#is-emulator)
-    * [](#)
 
 
 ADB (Android Debug Bridge)
