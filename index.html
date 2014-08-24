@@ -78,6 +78,17 @@
 <li><a href="#has-kitkat">has KitKat</a></li>
 </ul>
 </li>
+<li>
+<a href="#device">Device</a>
+
+<ul>
+<li><a href="#device-name">Device name</a></li>
+<li><a href="#sdk-version">SDK version</a></li>
+<li><a href="#phone-number">Phone number</a></li>
+<li><a href="#has-camera">has Camera</a></li>
+<li><a href="#is-emulator">is emulator</a></li>
+</ul>
+</li>
 </ul><h2>
 <a name="adb-android-debug-bridge" class="anchor" href="#adb-android-debug-bridge"><span class="octicon octicon-link"></span></a>ADB (Android Debug Bridge)</h2>
 
@@ -430,6 +441,60 @@ adb shell setprop debug.checkjni 1
 
 <div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasKitKat</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">SDK_INT</span> <span class="o">&gt;=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION_CODES</span><span class="o">.</span><span class="na">KITKAT</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="device" class="anchor" href="#device"><span class="octicon octicon-link"></span></a>Device</h2>
+
+<h3>
+<a name="device-name" class="anchor" href="#device-name"><span class="octicon octicon-link"></span></a>Device name</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getDeviceName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">manufacturer</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">MANUFACTURER</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">model</span> <span class="o">=</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">MODEL</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="n">manufacturer</span><span class="o">)</span> <span class="o">?</span> <span class="n">model</span> <span class="o">:</span> <span class="n">manufacturer</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">model</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="sdk-version" class="anchor" href="#sdk-version"><span class="octicon octicon-link"></span></a>SDK version</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">getSdkVersion</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">VERSION</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getField</span><span class="o">(</span><span class="s">"SDK_INT"</span><span class="o">).</span><span class="na">getInt</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Failed to get SDK version"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="phone-number" class="anchor" href="#phone-number"><span class="octicon octicon-link"></span></a>Phone number</h3>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.READ_PHONE_STATE"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getPhoneNumber</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">((</span><span class="n">TelephonyManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">TELEPHONY_SERVICE</span><span class="o">)).</span><span class="na">getLine1Number</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="has-camera" class="anchor" href="#has-camera"><span class="octicon octicon-link"></span></a>has Camera</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">hasCamera</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">PackageManager</span> <span class="n">pm</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="na">getPackageManager</span><span class="o">();</span>
+    <span class="k">return</span> <span class="n">pm</span><span class="o">.</span><span class="na">hasSystemFeature</span><span class="o">(</span><span class="n">PackageManager</span><span class="o">.</span><span class="na">FEATURE_CAMERA</span><span class="o">)</span> <span class="o">||</span> <span class="n">pm</span><span class="o">.</span><span class="na">hasSystemFeature</span><span class="o">(</span><span class="n">PackageManager</span><span class="o">.</span><span class="na">FEATURE_CAMERA_FRONT</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="is-emulator" class="anchor" href="#is-emulator"><span class="octicon octicon-link"></span></a>is emulator</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isEmulator</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">MODEL</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"sdk"</span><span class="o">)</span> <span class="o">||</span> <span class="n">android</span><span class="o">.</span><span class="na">os</span><span class="o">.</span><span class="na">Build</span><span class="o">.</span><span class="na">MODEL</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">"google_sdk"</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
       </section>
