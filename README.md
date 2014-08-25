@@ -1,7 +1,3 @@
-Android Snippets
-================
-
-
   * [ADB](#adb-android-debug-bridge)
     * [list of devices](#list-of-devices)
     * [screen capture](#screen-capture)
