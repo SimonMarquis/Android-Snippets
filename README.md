@@ -38,6 +38,9 @@ Android Snippets
     * [Phone number](#phone-number)
     * [has Camera](#has-camera)
     * [is emulator](#is-emulator)
+  * [InputFilter](#inputfilter)
+    * [All Lower](#all-lower)
+    * [Restricted chars](#restricted-chars)
 
 
 ADB (Android Debug Bridge)
@@ -437,5 +440,84 @@ public static boolean hasCamera(Context context) {
 ```java
 public static boolean isEmulator() {
     return android.os.Build.MODEL.equals("sdk") || android.os.Build.MODEL.equals("google_sdk");
+}
+```
+
+InputFilter
+-----------
+
+### All Lower
+
+```java
+public class AllLower implements InputFilter {
+	@Override
+	public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+		for (int i = start; i < end; i++) {
+			if (Character.isUpperCase(source.charAt(i))) {
+				char[] v = new char[end - start];
+				TextUtils.getChars(source, start, end, v, 0);
+				String s = new String(v).toLowerCase();
+				if (source instanceof Spanned) {
+					SpannableString sp = new SpannableString(s);
+					TextUtils.copySpansFrom((Spanned) source, start, end, null, sp, 0);
+					return sp;
+				} else {
+					return s;
+				}
+			}
+		}
+		return null;
+	}
+}
+```
+
+### Restricted chars
+
+```java
+public class RestrictedChars implements android.text.InputFilter {
+
+	private char[] restrictedChars;
+
+	public RestrictedChars(char... acceptedChars) {
+		this.restrictedChars = acceptedChars;
+	}
+
+	@Override
+	public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+		int i;
+		for (i = start; i < end; i++) {
+			if (!ok(restrictedChars, source.charAt(i))) {
+				break;
+			}
+		}
+
+		if (i == end) {
+			return null;
+		}
+
+		if (end - start == 1) {
+			return "";
+		}
+
+		SpannableStringBuilder filtered = new SpannableStringBuilder(source, start, end);
+		i -= start;
+		end -= start;
+
+		for (int j = end - 1; j >= i; j--) {
+			if (!ok(restrictedChars, source.charAt(j))) {
+				filtered.delete(j, j + 1);
+			}
+		}
+		return filtered;
+	}
+
+	protected boolean ok(char[] accept, char c) {
+		for (int i = accept.length - 1; i >= 0; i--) {
+			if (accept[i] == c) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
 ```
