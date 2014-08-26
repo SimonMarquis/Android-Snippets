@@ -37,6 +37,24 @@
   * [InputFilter](#inputfilter)
     * [All Lower](#all-lower)
     * [Restricted chars](#restricted-chars)
+  * [Intent](#intent)
+    * [is Intent available](#is-intent-available)
+    * [browse](#browse)
+    * [share](#share)
+    * [dial](#dial)
+    * [call](#call)
+    * [sms](#sms)
+    * [mms](#mms)
+    * [email](#email)
+    * [maps](#maps)
+    * [navigation](#navigation)
+    * [install](#install)
+    * [uninstall](#uninstall)
+    * [playStore](#playstore)
+    * [select contact](#select-contact)
+    * [take picture](#take-picture)
+    * [take video](#take-video)
+    * [wifi settings](#wifi-settings)
 
 
 ADB (Android Debug Bridge)
@@ -515,5 +533,235 @@ public class RestrictedChars implements android.text.InputFilter {
 		}
 		return false;
 	}
+}
+```
+
+Intent
+------
+
+### is Intent available
+
+```java
+public static boolean isIntentAvailable(Context context, Intent intent) {
+    return !context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isEmpty();
+}
+```
+
+### browse
+
+```java
+public static Intent browse(Context context, String url) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+}
+```
+
+### share
+
+```java
+public static Intent share(Context context, String subject, String message) {
+    Intent intent = new Intent(Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.putExtra(Intent.EXTRA_TEXT, message);
+    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    return intent;
+}
+```
+
+### dial
+
+```java
+public static Intent dial(Context context, String number) {
+    return new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+}
+```
+
+### call
+
+```xml
+<uses-permission android:name="android.permission.CALL_PHONE" />
+```
+
+```java
+public static Intent call(Context context, String number) {
+    return new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
+}
+```
+
+### sms
+
+```java
+public static Intent sms(Context context, String number, String message) {
+    Uri uri = Uri.parse("smsto:" + number);
+    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+    intent.putExtra("sms_body", message);
+    return intent;
+}
+```
+
+### mms
+
+```java
+public static Intent mms(Context context, String number, String subject, String message, Uri attachment) {
+    Uri uri = Uri.parse("mmsto:" + number);
+    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+    intent.putExtra("subject", subject);
+    intent.putExtra("sms_body", message);
+    if (attachment != null)
+        intent.putExtra(Intent.EXTRA_STREAM, attachment);
+    return intent;
+}
+```
+
+### email
+
+```java
+public static Intent email(Context context, String[] addresses, String subject, String body, Uri attachment) {
+    Intent intent = new Intent(Intent.ACTION_SENDTO);
+    intent.setData(Uri.parse("mailto:"));
+    if (addresses != null)
+        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+    if (body != null)
+        intent.putExtra(Intent.EXTRA_TEXT, body);
+    if (subject != null)
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+    if (attachment != null)
+        intent.putExtra(Intent.EXTRA_STREAM, attachment);
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    return intent;
+}
+```
+
+### maps
+
+```java
+public static Intent maps(Context context, double lat, double lng) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lng));
+}
+```
+
+```java
+public static Intent maps(Context context, double lat, double lng, int zoom) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lng + "?z=" + zoom));
+}
+```
+
+```java
+public static Intent maps(Context context, double lat, double lng, String label) throws UnsupportedEncodingException {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + lat + "," + lng + "(" + URLEncoder.encode(label, "UTF-8") + ")"));
+}
+```
+
+```java
+public static Intent maps(Context context, String query) throws UnsupportedEncodingException {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + URLEncoder.encode(query, "UTF-8")));
+}
+```
+
+### navigation
+
+```java
+/**
+ * @param mode d: Driving, w: Walking, r: Public transit, b: Biking
+ */
+public static Intent navigation(Context context, String address, String mode) throws UnsupportedEncodingException {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + URLEncoder.encode(address, "UTF-8") +( mode == null ? "" : ("&mode=" + mode))));
+}
+```
+
+```java
+/**
+ * @param mode d: Driving, w: Walking, r: Public transit, b: Biking
+ */
+public static Intent navigate(Context context, double lat, double lng, String mode) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + lat + "," + lng + (mode == null ? "" : ("&mode=" + mode))));
+}
+```
+
+### install
+
+```java
+public static Intent install(Context context, Uri file) {
+    Intent intent = new Intent(Intent.ACTION_VIEW);
+    intent.setDataAndType(file, "application/vnd.android.package-archive");
+    return intent;
+}
+```
+
+### uninstall
+
+```java
+public static Intent uninstall(Context context, String packageName) {
+    return new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
+}
+```
+
+### playStore
+
+```java
+public static Intent playStore(Context context, String packageName) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+}
+```
+
+```java
+public static Intent playStore(Context context, String publisherName) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:" + publisherName));
+}
+```
+
+```java
+/**
+ * @param category apps, movies, music, newsstand, devices
+ */
+public static Intent playStore(Context context, String search, String category) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=" + search + (category == null ? "" : ("&c=" + category))));
+}
+```
+
+```java
+/**
+ * @param collection featured, editors_choice, topselling_paid, topselling_free, topselling_new_free, topselling_new_paid, topgrossing, movers_shakers, topselling_paid_game
+ */
+public static Intent playStore(Context context, String collection) {
+    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://apps/collection/" + collection));
+}
+```
+
+### select contact
+
+```java
+public static Intent selectContact(Context context) {
+    Intent intent = new Intent(Intent.ACTION_PICK);
+    intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+    return intent;
+}
+```
+
+### take picture
+
+```java
+public static Intent picture(Context context, File file) {
+    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+    return intent;
+}
+```
+
+### take video
+
+```java
+public static Intent video(Context context, File file) {
+    Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+    return intent;
+}
+```
+
+### wifi settings
+
+```java
+public static Intent wifi(Context context) {
+    return new Intent(Settings.ACTION_WIFI_SETTINGS);
 }
 ```
