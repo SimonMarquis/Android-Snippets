@@ -97,6 +97,29 @@
 <li><a href="#restricted-chars">Restricted chars</a></li>
 </ul>
 </li>
+<li>
+<a href="#intent">Intent</a>
+
+<ul>
+<li><a href="#is-intent-available">is Intent available</a></li>
+<li><a href="#browse">browse</a></li>
+<li><a href="#share">share</a></li>
+<li><a href="#dial">dial</a></li>
+<li><a href="#call">call</a></li>
+<li><a href="#sms">sms</a></li>
+<li><a href="#mms">mms</a></li>
+<li><a href="#email">email</a></li>
+<li><a href="#maps">maps</a></li>
+<li><a href="#navigation">navigation</a></li>
+<li><a href="#install">install</a></li>
+<li><a href="#uninstall">uninstall</a></li>
+<li><a href="#playstore">playStore</a></li>
+<li><a href="#select-contact">select contact</a></li>
+<li><a href="#take-picture">take picture</a></li>
+<li><a href="#take-video">take video</a></li>
+<li><a href="#wifi-settings">wifi settings</a></li>
+</ul>
+</li>
 </ul><h2>
 <a name="adb-android-debug-bridge" class="anchor" href="#adb-android-debug-bridge"><span class="octicon octicon-link"></span></a>ADB (Android Debug Bridge)</h2>
 
@@ -582,6 +605,228 @@ adb shell setprop debug.checkjni 1
         <span class="o">}</span>
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
     <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="intent" class="anchor" href="#intent"><span class="octicon octicon-link"></span></a>Intent</h2>
+
+<h3>
+<a name="is-intent-available" class="anchor" href="#is-intent-available"><span class="octicon octicon-link"></span></a>is Intent available</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isIntentAvailable</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Intent</span> <span class="n">intent</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">!</span><span class="n">context</span><span class="o">.</span><span class="na">getPackageManager</span><span class="o">().</span><span class="na">queryIntentActivities</span><span class="o">(</span><span class="n">intent</span><span class="o">,</span> <span class="n">PackageManager</span><span class="o">.</span><span class="na">MATCH_DEFAULT_ONLY</span><span class="o">).</span><span class="na">isEmpty</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="browse" class="anchor" href="#browse"><span class="octicon octicon-link"></span></a>browse</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">browse</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">url</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="share" class="anchor" href="#share"><span class="octicon octicon-link"></span></a>share</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">share</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SEND</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="s">"text/plain"</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_TEXT</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_SUBJECT</span><span class="o">,</span> <span class="n">subject</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="dial" class="anchor" href="#dial"><span class="octicon octicon-link"></span></a>dial</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">dial</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_DIAL</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"tel:"</span> <span class="o">+</span> <span class="n">number</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="call" class="anchor" href="#call"><span class="octicon octicon-link"></span></a>call</h3>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.CALL_PHONE"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">call</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_CALL</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"tel:"</span> <span class="o">+</span> <span class="n">number</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="sms" class="anchor" href="#sms"><span class="octicon octicon-link"></span></a>sms</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">sms</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">number</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"smsto:"</span> <span class="o">+</span> <span class="n">number</span><span class="o">);</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SENDTO</span><span class="o">,</span> <span class="n">uri</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"sms_body"</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="mms" class="anchor" href="#mms"><span class="octicon octicon-link"></span></a>mms</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">mms</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">number</span><span class="o">,</span> <span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Uri</span> <span class="n">attachment</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Uri</span> <span class="n">uri</span> <span class="o">=</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"mmsto:"</span> <span class="o">+</span> <span class="n">number</span><span class="o">);</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SENDTO</span><span class="o">,</span> <span class="n">uri</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"subject"</span><span class="o">,</span> <span class="n">subject</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="s">"sms_body"</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">attachment</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_STREAM</span><span class="o">,</span> <span class="n">attachment</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="email" class="anchor" href="#email"><span class="octicon octicon-link"></span></a>email</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">email</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">addresses</span><span class="o">,</span> <span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">,</span> <span class="n">Uri</span> <span class="n">attachment</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SENDTO</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"mailto:"</span><span class="o">));</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">addresses</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_EMAIL</span><span class="o">,</span> <span class="n">addresses</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">body</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_TEXT</span><span class="o">,</span> <span class="n">body</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">subject</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_SUBJECT</span><span class="o">,</span> <span class="n">subject</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">attachment</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_STREAM</span><span class="o">,</span> <span class="n">attachment</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">setFlags</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">FLAG_ACTIVITY_NEW_TASK</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="maps" class="anchor" href="#maps"><span class="octicon octicon-link"></span></a>maps</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">maps</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lng</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"geo:"</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">lng</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">maps</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lng</span><span class="o">,</span> <span class="kt">int</span> <span class="n">zoom</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"geo:"</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">lng</span> <span class="o">+</span> <span class="s">"?z="</span> <span class="o">+</span> <span class="n">zoom</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">maps</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lng</span><span class="o">,</span> <span class="n">String</span> <span class="n">label</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"geo:0,0?q="</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">lng</span> <span class="o">+</span> <span class="s">"("</span> <span class="o">+</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">label</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">)</span> <span class="o">+</span> <span class="s">")"</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">maps</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">query</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"geo:0,0?q="</span> <span class="o">+</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">query</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">)));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="navigation" class="anchor" href="#navigation"><span class="octicon octicon-link"></span></a>navigation</h3>
+
+<div class="highlight highlight-java"><pre><span class="cm">/**</span>
+<span class="cm"> * @param mode d: Driving, w: Walking, r: Public transit, b: Biking</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">navigation</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">,</span> <span class="n">String</span> <span class="n">mode</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"google.navigation:q="</span> <span class="o">+</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">)</span> <span class="o">+(</span> <span class="n">mode</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">""</span> <span class="o">:</span> <span class="o">(</span><span class="s">"&amp;mode="</span> <span class="o">+</span> <span class="n">mode</span><span class="o">))));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="cm">/**</span>
+<span class="cm"> * @param mode d: Driving, w: Walking, r: Public transit, b: Biking</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">navigate</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lat</span><span class="o">,</span> <span class="kt">double</span> <span class="n">lng</span><span class="o">,</span> <span class="n">String</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"google.navigation:q="</span> <span class="o">+</span> <span class="n">lat</span> <span class="o">+</span> <span class="s">","</span> <span class="o">+</span> <span class="n">lng</span> <span class="o">+</span> <span class="o">(</span><span class="n">mode</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">""</span> <span class="o">:</span> <span class="o">(</span><span class="s">"&amp;mode="</span> <span class="o">+</span> <span class="n">mode</span><span class="o">))));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="install" class="anchor" href="#install"><span class="octicon octicon-link"></span></a>install</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">install</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">Uri</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">setDataAndType</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="s">"application/vnd.android.package-archive"</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="uninstall" class="anchor" href="#uninstall"><span class="octicon octicon-link"></span></a>uninstall</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">uninstall</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">packageName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_DELETE</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"package:"</span> <span class="o">+</span> <span class="n">packageName</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="playstore" class="anchor" href="#playstore"><span class="octicon octicon-link"></span></a>playStore</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">playStore</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">packageName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"market://details?id="</span> <span class="o">+</span> <span class="n">packageName</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">playStore</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">publisherName</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"market://search?q=pub:"</span> <span class="o">+</span> <span class="n">publisherName</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="cm">/**</span>
+<span class="cm"> * @param category apps, movies, music, newsstand, devices</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">playStore</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">search</span><span class="o">,</span> <span class="n">String</span> <span class="n">category</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"market://search?q="</span> <span class="o">+</span> <span class="n">search</span> <span class="o">+</span> <span class="o">(</span><span class="n">category</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="s">""</span> <span class="o">:</span> <span class="o">(</span><span class="s">"&amp;c="</span> <span class="o">+</span> <span class="n">category</span><span class="o">))));</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="cm">/**</span>
+<span class="cm"> * @param collection featured, editors_choice, topselling_paid, topselling_free, topselling_new_free, topselling_new_paid, topgrossing, movers_shakers, topselling_paid_game</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">playStore</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span> <span class="n">collection</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_VIEW</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"market://apps/collection/"</span> <span class="o">+</span> <span class="n">collection</span><span class="o">));</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="select-contact" class="anchor" href="#select-contact"><span class="octicon octicon-link"></span></a>select contact</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">selectContact</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_PICK</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="n">ContactsContract</span><span class="o">.</span><span class="na">Contacts</span><span class="o">.</span><span class="na">CONTENT_TYPE</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="take-picture" class="anchor" href="#take-picture"><span class="octicon octicon-link"></span></a>take picture</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">picture</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">File</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">ACTION_IMAGE_CAPTURE</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">EXTRA_OUTPUT</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">fromFile</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="take-video" class="anchor" href="#take-video"><span class="octicon octicon-link"></span></a>take video</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">video</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">File</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">ACTION_VIDEO_CAPTURE</span><span class="o">);</span>
+    <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">MediaStore</span><span class="o">.</span><span class="na">EXTRA_OUTPUT</span><span class="o">,</span> <span class="n">Uri</span><span class="o">.</span><span class="na">fromFile</span><span class="o">(</span><span class="n">file</span><span class="o">));</span>
+    <span class="k">return</span> <span class="n">intent</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="wifi-settings" class="anchor" href="#wifi-settings"><span class="octicon octicon-link"></span></a>wifi settings</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">wifi</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Settings</span><span class="o">.</span><span class="na">ACTION_WIFI_SETTINGS</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
       </section>
