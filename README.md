@@ -150,6 +150,10 @@ adb shell pm list packages -f
 
 # enable CheckJNI (0 to disable)
 adb shell setprop debug.checkjni 1
+
+# send broadcast (--es | --esn | --ez | --ei | --el | --ef | --eu | --eia | --ela | --efa)
+adb shell am broadcast -a your.custom.ACTION -n your.package.name/.YourBroadcastReceiver -e "key" "value"
+
 ```
 
 
