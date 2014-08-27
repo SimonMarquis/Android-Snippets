@@ -616,11 +616,15 @@ public static Intent mms(Context context, String number, String subject, String 
 ### email
 
 ```java
-public static Intent email(Context context, String[] addresses, String subject, String body, Uri attachment) {
+public static Intent email(Context context, String[] to, String [] cc, String [] bcc, String subject, String body, Uri attachment) {
     Intent intent = new Intent(Intent.ACTION_SENDTO);
     intent.setData(Uri.parse("mailto:"));
-    if (addresses != null)
-        intent.putExtra(Intent.EXTRA_EMAIL, addresses);
+    if (to != null)
+        intent.putExtra(Intent.EXTRA_EMAIL, to);
+    if (cc != null)
+    	intent.putExtra(Intent.EXTRA_CC, cc);
+    if (bcc != null)
+    	intent.putExtra(Intent.EXTRA_BCC, bcc);
     if (body != null)
         intent.putExtra(Intent.EXTRA_TEXT, body);
     if (subject != null)
