@@ -55,6 +55,9 @@
     * [take picture](#take-picture)
     * [take video](#take-video)
     * [wifi settings](#wifi-settings)
+  * [Logcat](#logcat)
+    * [clear](#clear)
+    * [capture](#capture)
 
 
 ADB (Android Debug Bridge)
@@ -773,3 +776,49 @@ public static Intent wifi(Context context) {
     return new Intent(Settings.ACTION_WIFI_SETTINGS);
 }
 ```
+
+Logcat
+------
+
+### clear
+
+```java
+public static void clear() {
+    try {
+        Runtime.getRuntime().exec(new String[] { "logcat", "-c" });
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to clear logcat " + e.getMessage());
+    }
+}
+```
+
+### capture
+
+```xml
+<uses-permission android:name="android.permission.READ_LOGS" />
+```
+
+```java
+/**
+ * @param args More intel on <a href="http://developer.android.com/tools/debugging/debugging-log.html">developer.android.com</a>
+ */
+public static String logcat(String[] args) {
+    try {
+        final Process pr = Runtime.getRuntime().exec(args != null ? args : new String[] { "logcat", "-d" });
+        final BufferedReader br = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        final String separator = System.getProperty("line.separator");
+        final StringBuilder log = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            log.append(line).append(separator);
+        }
+        return log.toString();
+    } catch (Exception e) {
+        Log.e(TAG, "Failed to capture logcat " + e.getMessage());
+        return null;
+    }
+}
+```
+
+
+
