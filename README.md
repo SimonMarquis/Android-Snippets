@@ -58,6 +58,9 @@
   * [Logcat](#logcat)
     * [clear](#clear)
     * [capture](#capture)
+  * [Network](#network)
+    * [is online](#is-online)
+    * [enable wifi](#enable-wifi)
 
 
 ADB (Android Debug Bridge)
@@ -820,5 +823,42 @@ public static String logcat(String[] args) {
 }
 ```
 
+Network
+-------
 
+### is online
 
+```xml
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+```
+
+```java
+public static boolean isOnline(Context context) {
+    final NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+    return (ni != null && ni.isAvailable() && ni.isConnected());
+}
+```
+
+```java
+/**
+ * {@link ConnectivityManager#TYPE_WIFI},
+ * {@link ConnectivityManager#TYPE_ETHERNET},
+ * {@link ConnectivityManager#TYPE_MOBILE}, ...
+ */
+public static boolean isOnline(Context context, int type) {
+    final NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(type);
+    return ni != null && ni.isAvailable() && ni.isConnected();
+}
+```
+
+### enable wifi
+
+```xml
+<uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+```
+
+```java
+public static boolean enableWifi(Context context, boolean enable) {
+    return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(enable);
+}
+```
