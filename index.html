@@ -120,6 +120,22 @@
 <li><a href="#wifi-settings">wifi settings</a></li>
 </ul>
 </li>
+<li>
+<a href="#logcat">Logcat</a>
+
+<ul>
+<li><a href="#clear">clear</a></li>
+<li><a href="#capture">capture</a></li>
+</ul>
+</li>
+<li>
+<a href="#network">Network</a>
+
+<ul>
+<li><a href="#is-online">is online</a></li>
+<li><a href="#enable-wifi">enable wifi</a></li>
+</ul>
+</li>
 </ul><h2>
 <a name="adb-android-debug-bridge" class="anchor" href="#adb-android-debug-bridge"><span class="octicon octicon-link"></span></a>ADB (Android Debug Bridge)</h2>
 
@@ -225,6 +241,10 @@ adb shell pm list packages -f
 
 <span class="c"># enable CheckJNI (0 to disable)</span>
 adb shell setprop debug.checkjni 1
+
+<span class="c"># send broadcast (--es | --esn | --ez | --ei | --el | --ef | --eu | --eia | --ela | --efa)</span>
+adb shell am broadcast -a your.custom.ACTION -n your.package.name/.YourBroadcastReceiver -e <span class="s2">"key"</span> <span class="s2">"value"</span>
+
 </pre></div>
 
 <h2>
@@ -687,11 +707,15 @@ adb shell setprop debug.checkjni 1
 <h3>
 <a name="email" class="anchor" href="#email"><span class="octicon octicon-link"></span></a>email</h3>
 
-<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">email</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">addresses</span><span class="o">,</span> <span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">,</span> <span class="n">Uri</span> <span class="n">attachment</span><span class="o">)</span> <span class="o">{</span>
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">email</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="n">String</span><span class="o">[]</span> <span class="n">to</span><span class="o">,</span> <span class="n">String</span> <span class="o">[]</span> <span class="n">cc</span><span class="o">,</span> <span class="n">String</span> <span class="o">[]</span> <span class="n">bcc</span><span class="o">,</span> <span class="n">String</span> <span class="n">subject</span><span class="o">,</span> <span class="n">String</span> <span class="n">body</span><span class="o">,</span> <span class="n">Uri</span> <span class="n">attachment</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Intent</span> <span class="n">intent</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">ACTION_SENDTO</span><span class="o">);</span>
     <span class="n">intent</span><span class="o">.</span><span class="na">setData</span><span class="o">(</span><span class="n">Uri</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="s">"mailto:"</span><span class="o">));</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">addresses</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
-        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_EMAIL</span><span class="o">,</span> <span class="n">addresses</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">to</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_EMAIL</span><span class="o">,</span> <span class="n">to</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">cc</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_CC</span><span class="o">,</span> <span class="n">cc</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">bcc</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_BCC</span><span class="o">,</span> <span class="n">bcc</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">body</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
         <span class="n">intent</span><span class="o">.</span><span class="na">putExtra</span><span class="o">(</span><span class="n">Intent</span><span class="o">.</span><span class="na">EXTRA_TEXT</span><span class="o">,</span> <span class="n">body</span><span class="o">);</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">subject</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
@@ -827,6 +851,85 @@ adb shell setprop debug.checkjni 1
 
 <div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Intent</span> <span class="nf">wifi</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">Intent</span><span class="o">(</span><span class="n">Settings</span><span class="o">.</span><span class="na">ACTION_WIFI_SETTINGS</span><span class="o">);</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="logcat" class="anchor" href="#logcat"><span class="octicon octicon-link"></span></a>Logcat</h2>
+
+<h3>
+<a name="clear" class="anchor" href="#clear"><span class="octicon octicon-link"></span></a>clear</h3>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"logcat"</span><span class="o">,</span> <span class="s">"-c"</span> <span class="o">});</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Failed to clear logcat "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="capture" class="anchor" href="#capture"><span class="octicon octicon-link"></span></a>capture</h3>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.READ_LOGS"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="cm">/**</span>
+<span class="cm"> * @param args More intel on &lt;a href="http://developer.android.com/tools/debugging/debugging-log.html"&gt;developer.android.com&lt;/a&gt;</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">logcat</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Process</span> <span class="n">pr</span> <span class="o">=</span> <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="n">args</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">args</span> <span class="o">:</span> <span class="k">new</span> <span class="n">String</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"logcat"</span><span class="o">,</span> <span class="s">"-d"</span> <span class="o">});</span>
+        <span class="kd">final</span> <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nf">InputStreamReader</span><span class="o">(</span><span class="n">pr</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+        <span class="kd">final</span> <span class="n">String</span> <span class="n">separator</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"line.separator"</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="n">StringBuilder</span> <span class="n">log</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">StringBuilder</span><span class="o">();</span>
+        <span class="n">String</span> <span class="n">line</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">log</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">line</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">separator</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">log</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Log</span><span class="o">.</span><span class="na">e</span><span class="o">(</span><span class="n">TAG</span><span class="o">,</span> <span class="s">"Failed to capture logcat "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+<h2>
+<a name="network" class="anchor" href="#network"><span class="octicon octicon-link"></span></a>Network</h2>
+
+<h3>
+<a name="is-online" class="anchor" href="#is-online"><span class="octicon octicon-link"></span></a>is online</h3>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.ACCESS_NETWORK_STATE"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isOnline</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">NetworkInfo</span> <span class="n">ni</span> <span class="o">=</span> <span class="o">((</span><span class="n">ConnectivityManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">CONNECTIVITY_SERVICE</span><span class="o">)).</span><span class="na">getActiveNetworkInfo</span><span class="o">();</span>
+    <span class="k">return</span> <span class="o">(</span><span class="n">ni</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">ni</span><span class="o">.</span><span class="na">isAvailable</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">ni</span><span class="o">.</span><span class="na">isConnected</span><span class="o">());</span>
+<span class="o">}</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="cm">/**</span>
+<span class="cm"> * {@link ConnectivityManager#TYPE_WIFI},</span>
+<span class="cm"> * {@link ConnectivityManager#TYPE_ETHERNET},</span>
+<span class="cm"> * {@link ConnectivityManager#TYPE_MOBILE}, ...</span>
+<span class="cm"> */</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">isOnline</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">int</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">final</span> <span class="n">NetworkInfo</span> <span class="n">ni</span> <span class="o">=</span> <span class="o">((</span><span class="n">ConnectivityManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">CONNECTIVITY_SERVICE</span><span class="o">)).</span><span class="na">getNetworkInfo</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">ni</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">ni</span><span class="o">.</span><span class="na">isAvailable</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">ni</span><span class="o">.</span><span class="na">isConnected</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+<h3>
+<a name="enable-wifi" class="anchor" href="#enable-wifi"><span class="octicon octicon-link"></span></a>enable wifi</h3>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;uses-permission</span> <span class="na">android:name=</span><span class="s">"android.permission.CHANGE_WIFI_STATE"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">enableWifi</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">enable</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">((</span><span class="n">WifiManager</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getSystemService</span><span class="o">(</span><span class="n">Context</span><span class="o">.</span><span class="na">WIFI_SERVICE</span><span class="o">)).</span><span class="na">setWifiEnabled</span><span class="o">(</span><span class="n">enable</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
       </section>
