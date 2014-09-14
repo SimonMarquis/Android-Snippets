@@ -183,9 +183,9 @@ Animation
 ### flash
 
 ```java
-public static ObjectAnimator flash(View view, float alphaFactor) {
-	PropertyValuesHolder pvhalpha = PropertyValuesHolder.ofKeyframe(android.view.View.ALPHA, Keyframe.ofFloat(0f, 1f), Keyframe.ofFloat(.25f, alphaFactor), Keyframe.ofFloat(0.5f, 1f), Keyframe.ofFloat(.75f, alphaFactor), Keyframe.ofFloat(1f, 1f));
-	return ObjectAnimator.ofPropertyValuesHolder(view, pvhalpha).setDuration(800);
+public static ObjectAnimator flash(final View view, final float alphaFactor) {
+	final PropertyValuesHolder pvhAlpha = PropertyValuesHolder.ofKeyframe(android.view.View.ALPHA, Keyframe.ofFloat(0f, 1f), Keyframe.ofFloat(.25f, alphaFactor), Keyframe.ofFloat(0.5f, 1f), Keyframe.ofFloat(.75f, alphaFactor), Keyframe.ofFloat(1f, 1f));
+	return ObjectAnimator.ofPropertyValuesHolder(view, pvhAlpha).setDuration(800);
 }
 ```
 
@@ -194,20 +194,20 @@ public static ObjectAnimator flash(View view, float alphaFactor) {
 Introduced by @cyrilmottier on [Google+](https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy)
 
 ```java
-public static ObjectAnimator nope(View view, int delta) {
-    PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X, Keyframe.ofFloat(0f, 0),
-            Keyframe.ofFloat(.10f, -delta), Keyframe.ofFloat(.26f, delta), Keyframe.ofFloat(.42f, -delta), Keyframe.ofFloat(.58f, delta),
-            Keyframe.ofFloat(.74f, -delta), Keyframe.ofFloat(.90f, delta), Keyframe.ofFloat(1f, 0f));
-    return ObjectAnimator.ofPropertyValuesHolder(view, pvhTranslateX).setDuration(500);
+public static ObjectAnimator nope(final View view, final int delta) {
+	final PropertyValuesHolder pvhTranslateX = PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X, Keyframe.ofFloat(0f, 0),
+			Keyframe.ofFloat(.10f, -delta), Keyframe.ofFloat(.26f, delta), Keyframe.ofFloat(.42f, -delta), Keyframe.ofFloat(.58f, delta),
+			Keyframe.ofFloat(.74f, -delta), Keyframe.ofFloat(.90f, delta), Keyframe.ofFloat(1f, 0f));
+	return ObjectAnimator.ofPropertyValuesHolder(view, pvhTranslateX).setDuration(500);
 }
 ```
 
 ### pulse
 
 ```java
-public static ObjectAnimator pulse(View view, float pulseFactor) {
-	PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_X, Keyframe.ofFloat(0f, 1f), Keyframe.ofFloat(.5f, pulseFactor * 1f), Keyframe.ofFloat(1f, 1f));
-	PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_Y, Keyframe.ofFloat(0f, 1f), Keyframe.ofFloat(.5f, pulseFactor * 1f), Keyframe.ofFloat(1f, 1f));
+public static ObjectAnimator pulse(final View view, final float pulseFactor) {
+	final PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_X, Keyframe.ofFloat(0f, 1f), Keyframe.ofFloat(.5f, pulseFactor * 1f), Keyframe.ofFloat(1f, 1f));
+	final PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_Y, Keyframe.ofFloat(0f, 1f), Keyframe.ofFloat(.5f, pulseFactor * 1f), Keyframe.ofFloat(1f, 1f));
 	return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY).setDuration(500);
 }
 ```
@@ -215,11 +215,11 @@ public static ObjectAnimator pulse(View view, float pulseFactor) {
 ### spring
 
 ```java
-public static ObjectAnimator spring(View view, float springFactor) {
-	PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_X, Keyframe.ofFloat(0f, 1f),
+public static ObjectAnimator spring(final View view, final float springFactor) {
+	final PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_X, Keyframe.ofFloat(0f, 1f),
 			Keyframe.ofFloat(0.25f, springFactor * 1.35f), Keyframe.ofFloat(0.5f, 0.65f / springFactor),
 			Keyframe.ofFloat(0.75f, springFactor * 1.15f), Keyframe.ofFloat(1f, 1f));
-	PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_Y, Keyframe.ofFloat(0f, 1f),
+	final PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(android.view.View.SCALE_Y, Keyframe.ofFloat(0f, 1f),
 			Keyframe.ofFloat(0.25f, 0.65f / springFactor), Keyframe.ofFloat(0.5f, springFactor * 1.35f),
 			Keyframe.ofFloat(0.75f, 0.85f / springFactor), Keyframe.ofFloat(1f, 1f));
 	return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY).setDuration(600);
@@ -231,22 +231,22 @@ public static ObjectAnimator spring(View view, float springFactor) {
 Introduced by @cyrilmottier on [Google+](https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy)
 
 ```java
-public static ObjectAnimator tada(View view, float shakeFactor) {
-    PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(View.SCALE_X, Keyframe.ofFloat(0f, 1f),
-            Keyframe.ofFloat(.1f, .9f), Keyframe.ofFloat(.2f, .9f), Keyframe.ofFloat(.3f, 1.1f), Keyframe.ofFloat(.4f, 1.1f),
-            Keyframe.ofFloat(.5f, 1.1f), Keyframe.ofFloat(.6f, 1.1f), Keyframe.ofFloat(.7f, 1.1f), Keyframe.ofFloat(.8f, 1.1f),
-            Keyframe.ofFloat(.9f, 1.1f), Keyframe.ofFloat(1f, 1f));
+public static ObjectAnimator tada(final View view, final float shakeFactor) {
+	final PropertyValuesHolder pvhScaleX = PropertyValuesHolder.ofKeyframe(View.SCALE_X, Keyframe.ofFloat(0f, 1f),
+			Keyframe.ofFloat(.1f, .9f), Keyframe.ofFloat(.2f, .9f), Keyframe.ofFloat(.3f, 1.1f), Keyframe.ofFloat(.4f, 1.1f),
+			Keyframe.ofFloat(.5f, 1.1f), Keyframe.ofFloat(.6f, 1.1f), Keyframe.ofFloat(.7f, 1.1f), Keyframe.ofFloat(.8f, 1.1f),
+			Keyframe.ofFloat(.9f, 1.1f), Keyframe.ofFloat(1f, 1f));
 
-    PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(View.SCALE_Y, Keyframe.ofFloat(0f, 1f),
-            Keyframe.ofFloat(.1f, .9f), Keyframe.ofFloat(.2f, .9f), Keyframe.ofFloat(.3f, 1.1f), Keyframe.ofFloat(.4f, 1.1f),
-            Keyframe.ofFloat(.5f, 1.1f), Keyframe.ofFloat(.6f, 1.1f), Keyframe.ofFloat(.7f, 1.1f), Keyframe.ofFloat(.8f, 1.1f),
-            Keyframe.ofFloat(.9f, 1.1f), Keyframe.ofFloat(1f, 1f));
+	final PropertyValuesHolder pvhScaleY = PropertyValuesHolder.ofKeyframe(View.SCALE_Y, Keyframe.ofFloat(0f, 1f),
+			Keyframe.ofFloat(.1f, .9f), Keyframe.ofFloat(.2f, .9f), Keyframe.ofFloat(.3f, 1.1f), Keyframe.ofFloat(.4f, 1.1f),
+			Keyframe.ofFloat(.5f, 1.1f), Keyframe.ofFloat(.6f, 1.1f), Keyframe.ofFloat(.7f, 1.1f), Keyframe.ofFloat(.8f, 1.1f),
+			Keyframe.ofFloat(.9f, 1.1f), Keyframe.ofFloat(1f, 1f));
 
-    PropertyValuesHolder pvhRotate = PropertyValuesHolder.ofKeyframe(View.ROTATION, Keyframe.ofFloat(0f, 0f),
-            Keyframe.ofFloat(.1f, -3f * shakeFactor), Keyframe.ofFloat(.2f, -3f * shakeFactor), Keyframe.ofFloat(.3f, 3f * shakeFactor),
-            Keyframe.ofFloat(.4f, -3f * shakeFactor), Keyframe.ofFloat(.5f, 3f * shakeFactor), Keyframe.ofFloat(.6f, -3f * shakeFactor),
-            Keyframe.ofFloat(.7f, 3f * shakeFactor), Keyframe.ofFloat(.8f, -3f * shakeFactor), Keyframe.ofFloat(.9f, 3f * shakeFactor),
-            Keyframe.ofFloat(1f, 0));
+	final PropertyValuesHolder pvhRotate = PropertyValuesHolder.ofKeyframe(View.ROTATION, Keyframe.ofFloat(0f, 0f),
+			Keyframe.ofFloat(.1f, -3f * shakeFactor), Keyframe.ofFloat(.2f, -3f * shakeFactor), Keyframe.ofFloat(.3f, 3f * shakeFactor),
+			Keyframe.ofFloat(.4f, -3f * shakeFactor), Keyframe.ofFloat(.5f, 3f * shakeFactor), Keyframe.ofFloat(.6f, -3f * shakeFactor),
+			Keyframe.ofFloat(.7f, 3f * shakeFactor), Keyframe.ofFloat(.8f, -3f * shakeFactor), Keyframe.ofFloat(.9f, 3f * shakeFactor),
+			Keyframe.ofFloat(1f, 0));
 
     return ObjectAnimator.ofPropertyValuesHolder(view, pvhScaleX, pvhScaleY, pvhRotate).setDuration(1000);
 }
@@ -258,20 +258,20 @@ Application
 ### application name
 
 ```java
-public static String getApplicationName(Context context) {
-    try {
-        return context.getString(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.labelRes);
-    } catch (Exception e) {
-        Log.e(TAG, "Failed to get application name", e);
-        return null;
-    }
+public static String getApplicationName(final Context context) {
+	try {
+		return context.getString(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).applicationInfo.labelRes);
+	} catch (Exception e) {
+		Log.e(TAG, "Failed to get application name", e);
+		return null;
+	}
 }
 ```
 
 ### version name
 
 ```java
-public static String getVersionName(Context context) {
+public static String getVersionName(final Context context) {
 	try {
 		return context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
 	} catch (Exception e) {
@@ -284,7 +284,7 @@ public static String getVersionName(Context context) {
 ### version code
 
 ```java
-public static String getVersionCode(Context context) {
+public static String getVersionCode(final Context context) {
 	try {
 		return Integer.toString(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode);
 	} catch (Exception e) {
@@ -301,7 +301,7 @@ public static String getVersionCode(Context context) {
 ```
 
 ```java
-public static void killBackgroundProcesses(Context context, String packageName) {
+public static void killBackgroundProcesses(final Context context, final String packageName) {
 	((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).killBackgroundProcesses(packageName);
 }
 ```
@@ -309,12 +309,12 @@ public static void killBackgroundProcesses(Context context, String packageName) 
 ### restart
 
 ```java
-public static void restart(Activity activity) {
-	Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
-	intent.setData(activity.getIntent().getData());
-	PendingIntent pi = PendingIntent.getActivity(activity, 1111, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-	AlarmManager mgr = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
-	mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pi);
+public static void restart(final Activity activity) {
+	final Intent intent = activity.getPackageManager().getLaunchIntentForPackage(activity.getPackageName());
+	final intent.setData(activity.getIntent().getData());
+	final PendingIntent pi = PendingIntent.getActivity(activity, 1111, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+	final AlarmManager am = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+	am.set(AlarmManager.RTC, System.currentTimeMillis() + 100, pi);
 	android.os.Process.killProcess(android.os.Process.myPid());
 }
 ```
@@ -326,7 +326,7 @@ Build
 
 ```java
 public static String getOsVersion() {
-    return android.os.Build.VERSION.RELEASE;
+	return android.os.Build.VERSION.RELEASE;
 }
 ```
 
@@ -334,7 +334,7 @@ public static String getOsVersion() {
 
 ```java
 public static boolean hasCupcake() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.CUPCAKE;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.CUPCAKE;
 }
 ```
 
@@ -342,7 +342,7 @@ public static boolean hasCupcake() {
 
 ```java
 public static boolean hasDonut() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.DONUT;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.DONUT;
 }
 ```
 
@@ -350,7 +350,7 @@ public static boolean hasDonut() {
 
 ```java
 public static boolean hasEclair() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ECLAIR;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ECLAIR;
 }
 ```
 
@@ -358,7 +358,7 @@ public static boolean hasEclair() {
 
 ```java
 public static boolean hasFroyo() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO;
 }
 ```
 
@@ -366,7 +366,7 @@ public static boolean hasFroyo() {
 
 ```java
 public static boolean hasGingerbread() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD;
 }
 
 public static boolean hasGingerbreadMR1() {
@@ -378,7 +378,7 @@ public static boolean hasGingerbreadMR1() {
 
 ```java
 public static boolean hasHoneycomb() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB;
 }
 
 public static boolean hasHoneycombMR1() {
@@ -394,7 +394,7 @@ public static boolean hasHoneycombMR2() {
 
 ```java
 public static boolean hasIceCreamSandwich() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.ICE_CREAM_SANDWICH;
 }
 
 public static boolean hasIceCreamSandwichMR1() {
@@ -406,7 +406,7 @@ public static boolean hasIceCreamSandwichMR1() {
 
 ```java
 public static boolean hasJellyBean() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN;
 }
 
 public static boolean hasJellyBeanMR1() {
@@ -422,7 +422,7 @@ public static boolean hasJellyBeanMR2() {
 
 ```java
 public static boolean hasKitKat() {
-    return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT;
+	return android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT;
 }
 ```
 
@@ -433,9 +433,9 @@ Device
 
 ```java
 public static String getDeviceName() {
-    String manufacturer = android.os.Build.MANUFACTURER;
-    String model = android.os.Build.MODEL;
-    return model.startsWith(manufacturer) ? model : manufacturer + " " + model;
+	final String manufacturer = android.os.Build.MANUFACTURER;
+	final String model = android.os.Build.MODEL;
+	return model.startsWith(manufacturer) ? model : manufacturer + " " + model;
 }
 ```
 
@@ -443,12 +443,12 @@ public static String getDeviceName() {
 
 ```java
 public static int getSdkVersion() {
-    try {
-        return android.os.Build.VERSION.class.getField("SDK_INT").getInt(null);
-    } catch (Exception e) {
-        Log.e(TAG, "Failed to get SDK version", e);
-    }
-    return 0;
+	try {
+		return android.os.Build.VERSION.class.getField("SDK_INT").getInt(null);
+	} catch (Exception e) {
+		Log.e(TAG, "Failed to get SDK version", e);
+	}
+	return 0;
 }
 ```
 
@@ -459,17 +459,17 @@ public static int getSdkVersion() {
 ```
 
 ```java
-public static String getPhoneNumber(Context context) {
-    return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
+public static String getPhoneNumber(final Context context) {
+	return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
 }
 ```
 
 ### has Camera
 
 ```java
-public static boolean hasCamera(Context context) {
-    PackageManager pm = context.getPackageManager();
-    return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
+public static boolean hasCamera(final Context context) {
+	final PackageManager pm = context.getPackageManager();
+	return pm.hasSystemFeature(PackageManager.FEATURE_CAMERA) || pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FRONT);
 }
 ```
 
@@ -477,7 +477,7 @@ public static boolean hasCamera(Context context) {
 
 ```java
 public static boolean isEmulator() {
-    return android.os.Build.MODEL.equals("sdk") || android.os.Build.MODEL.equals("google_sdk");
+	return android.os.Build.MODEL.equals("sdk") || android.os.Build.MODEL.equals("google_sdk");
 }
 ```
 
@@ -489,14 +489,14 @@ InputFilter
 ```java
 public class AllLower implements InputFilter {
 	@Override
-	public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+	public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dstart, final int dend) {
 		for (int i = start; i < end; i++) {
 			if (Character.isUpperCase(source.charAt(i))) {
-				char[] v = new char[end - start];
+				final char[] v = new char[end - start];
 				TextUtils.getChars(source, start, end, v, 0);
-				String s = new String(v).toLowerCase();
+				final String s = new String(v).toLowerCase();
 				if (source instanceof Spanned) {
-					SpannableString sp = new SpannableString(s);
+					final SpannableString sp = new SpannableString(s);
 					TextUtils.copySpansFrom((Spanned) source, start, end, null, sp, 0);
 					return sp;
 				} else {
@@ -521,7 +521,7 @@ public class RestrictedChars implements android.text.InputFilter {
 	}
 
 	@Override
-	public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+	public CharSequence filter(final CharSequence source, final int start, int end, final Spanned dest, final int dstart, final int dend) {
 		int i;
 		for (i = start; i < end; i++) {
 			if (!ok(restrictedChars, source.charAt(i))) {
@@ -537,7 +537,7 @@ public class RestrictedChars implements android.text.InputFilter {
 			return "";
 		}
 
-		SpannableStringBuilder filtered = new SpannableStringBuilder(source, start, end);
+		final SpannableStringBuilder filtered = new SpannableStringBuilder(source, start, end);
 		i -= start;
 		end -= start;
 
@@ -566,37 +566,37 @@ Intent
 ### is Intent available
 
 ```java
-public static boolean isIntentAvailable(Context context, Intent intent) {
-    return !context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isEmpty();
+public static boolean isIntentAvailable(final Context context, final Intent intent) {
+	return !context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY).isEmpty();
 }
 ```
 
 ### browse
 
 ```java
-public static Intent browse(Context context, String url) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+public static Intent browse(final Context context, final String url) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
 }
 ```
 
 ### share
 
 ```java
-public static Intent share(Context context, String subject, String message) {
-    Intent intent = new Intent(Intent.ACTION_SEND);
-    intent.setType("text/plain");
-    intent.putExtra(Intent.EXTRA_TEXT, message);
-    intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    return intent;
+public static Intent share(final Context context, final String subject, final String message) {
+	final Intent intent = new Intent(Intent.ACTION_SEND);
+	intent.setType("text/plain");
+	intent.putExtra(Intent.EXTRA_TEXT, message);
+	intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	return intent;
 }
 ```
 
 ### dial
 
 ```java
-public static Intent dial(Context context, String number) {
-    return new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
+public static Intent dial(final Context context, final String number) {
+	return new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + number));
 }
 ```
 
@@ -607,81 +607,81 @@ public static Intent dial(Context context, String number) {
 ```
 
 ```java
-public static Intent call(Context context, String number) {
-    return new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
+public static Intent call(final Context context, final String number) {
+	return new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
 }
 ```
 
 ### sms
 
 ```java
-public static Intent sms(Context context, String number, String message) {
-    Uri uri = Uri.parse("smsto:" + number);
-    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-    intent.putExtra("sms_body", message);
-    return intent;
+public static Intent sms(final Context context, final String number, final String message) {
+	final Uri uri = Uri.parse("smsto:" + number);
+	final Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+	intent.putExtra("sms_body", message);
+	return intent;
 }
 ```
 
 ### mms
 
 ```java
-public static Intent mms(Context context, String number, String subject, String message, Uri attachment) {
-    Uri uri = Uri.parse("mmsto:" + number);
-    Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
-    intent.putExtra("subject", subject);
-    intent.putExtra("sms_body", message);
-    if (attachment != null)
-        intent.putExtra(Intent.EXTRA_STREAM, attachment);
-    return intent;
+public static Intent mms(final Context context, final String number, final String subject, final String message, final Uri attachment) {
+	final Uri uri = Uri.parse("mmsto:" + number);
+	final Intent intent = new Intent(Intent.ACTION_SENDTO, uri);
+	intent.putExtra("subject", subject);
+	intent.putExtra("sms_body", message);
+	if (attachment != null)
+		intent.putExtra(Intent.EXTRA_STREAM, attachment);
+	return intent;
 }
 ```
 
 ### email
 
 ```java
-public static Intent email(Context context, String[] to, String [] cc, String [] bcc, String subject, String body, Uri attachment) {
-    Intent intent = new Intent(Intent.ACTION_SENDTO);
-    intent.setData(Uri.parse("mailto:"));
-    if (to != null)
-        intent.putExtra(Intent.EXTRA_EMAIL, to);
-    if (cc != null)
-    	intent.putExtra(Intent.EXTRA_CC, cc);
-    if (bcc != null)
-    	intent.putExtra(Intent.EXTRA_BCC, bcc);
-    if (body != null)
-        intent.putExtra(Intent.EXTRA_TEXT, body);
-    if (subject != null)
-        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
-    if (attachment != null)
-        intent.putExtra(Intent.EXTRA_STREAM, attachment);
-    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-    return intent;
+public static Intent email(final Context context, final String[] to, final String [] cc, final String [] bcc, final String subject, final String body, final Uri attachment) {
+	final Intent intent = new Intent(Intent.ACTION_SENDTO);
+	intent.setData(Uri.parse("mailto:"));
+	if (to != null)
+		intent.putExtra(Intent.EXTRA_EMAIL, to);
+	if (cc != null)
+		intent.putExtra(Intent.EXTRA_CC, cc);
+	if (bcc != null)
+		intent.putExtra(Intent.EXTRA_BCC, bcc);
+	if (body != null)
+		intent.putExtra(Intent.EXTRA_TEXT, body);
+	if (subject != null)
+		intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+	if (attachment != null)
+		intent.putExtra(Intent.EXTRA_STREAM, attachment);
+	intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	return intent;
 }
 ```
 
 ### maps
 
 ```java
-public static Intent maps(Context context, double lat, double lng) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lng));
+public static Intent maps(final Context context, final double lat, final double lng) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lng));
 }
 ```
 
 ```java
-public static Intent maps(Context context, double lat, double lng, int zoom) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lng + "?z=" + zoom));
+public static Intent maps(final Context context, final double lat, final double lng, final int zoom) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:" + lat + "," + lng + "?z=" + zoom));
 }
 ```
 
 ```java
-public static Intent maps(Context context, double lat, double lng, String label) throws UnsupportedEncodingException {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + lat + "," + lng + "(" + URLEncoder.encode(label, "UTF-8") + ")"));
+public static Intent maps(final Context context, final double lat, final double lng, final String label) throws UnsupportedEncodingException {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + lat + "," + lng + "(" + URLEncoder.encode(label, "UTF-8") + ")"));
 }
 ```
 
 ```java
-public static Intent maps(Context context, String query) throws UnsupportedEncodingException {
+public static Intent maps(final Context context, final String query) throws UnsupportedEncodingException {
     return new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + URLEncoder.encode(query, "UTF-8")));
 }
 ```
@@ -692,8 +692,8 @@ public static Intent maps(Context context, String query) throws UnsupportedEncod
 /**
  * @param mode d: Driving, w: Walking, r: Public transit, b: Biking
  */
-public static Intent navigation(Context context, String address, String mode) throws UnsupportedEncodingException {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + URLEncoder.encode(address, "UTF-8") +( mode == null ? "" : ("&mode=" + mode))));
+public static Intent navigation(final Context context, final String address, final String mode) throws UnsupportedEncodingException {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + URLEncoder.encode(address, "UTF-8") +( mode == null ? "" : ("&mode=" + mode))));
 }
 ```
 
@@ -701,40 +701,40 @@ public static Intent navigation(Context context, String address, String mode) th
 /**
  * @param mode d: Driving, w: Walking, r: Public transit, b: Biking
  */
-public static Intent navigate(Context context, double lat, double lng, String mode) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + lat + "," + lng + (mode == null ? "" : ("&mode=" + mode))));
+public static Intent navigate(final Context context, final double lat, final double lng, final String mode) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=" + lat + "," + lng + (mode == null ? "" : ("&mode=" + mode))));
 }
 ```
 
 ### install
 
 ```java
-public static Intent install(Context context, Uri file) {
-    Intent intent = new Intent(Intent.ACTION_VIEW);
-    intent.setDataAndType(file, "application/vnd.android.package-archive");
-    return intent;
+public static Intent install(final Context context, final Uri file) {
+	final Intent intent = new Intent(Intent.ACTION_VIEW);
+	intent.setDataAndType(file, "application/vnd.android.package-archive");
+	return intent;
 }
 ```
 
 ### uninstall
 
 ```java
-public static Intent uninstall(Context context, String packageName) {
-    return new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
+public static Intent uninstall(final Context context, final String packageName) {
+	return new Intent(Intent.ACTION_DELETE, Uri.parse("package:" + packageName));
 }
 ```
 
 ### playStore
 
 ```java
-public static Intent playStore(Context context, String packageName) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+public static Intent playStore(final Context context, final String packageName) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
 }
 ```
 
 ```java
-public static Intent playStore(Context context, String publisherName) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:" + publisherName));
+public static Intent playStore(final Context context, final String publisherName) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=pub:" + publisherName));
 }
 ```
 
@@ -742,8 +742,8 @@ public static Intent playStore(Context context, String publisherName) {
 /**
  * @param category apps, movies, music, newsstand, devices
  */
-public static Intent playStore(Context context, String search, String category) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=" + search + (category == null ? "" : ("&c=" + category))));
+public static Intent playStore(final Context context, final String search, final String category) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("market://search?q=" + search + (category == null ? "" : ("&c=" + category))));
 }
 ```
 
@@ -751,46 +751,46 @@ public static Intent playStore(Context context, String search, String category) 
 /**
  * @param collection featured, editors_choice, topselling_paid, topselling_free, topselling_new_free, topselling_new_paid, topgrossing, movers_shakers, topselling_paid_game
  */
-public static Intent playStore(Context context, String collection) {
-    return new Intent(Intent.ACTION_VIEW, Uri.parse("market://apps/collection/" + collection));
+public static Intent playStore(final Context context, final String collection) {
+	return new Intent(Intent.ACTION_VIEW, Uri.parse("market://apps/collection/" + collection));
 }
 ```
 
 ### select contact
 
 ```java
-public static Intent selectContact(Context context) {
-    Intent intent = new Intent(Intent.ACTION_PICK);
-    intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-    return intent;
+public static Intent selectContact(final Context context) {
+	final Intent intent = new Intent(Intent.ACTION_PICK);
+	intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+	return intent;
 }
 ```
 
 ### take picture
 
 ```java
-public static Intent picture(Context context, File file) {
-    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-    return intent;
+public static Intent picture(final Context context, final File file) {
+	final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+	return intent;
 }
 ```
 
 ### take video
 
 ```java
-public static Intent video(Context context, File file) {
-    Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
-    return intent;
+public static Intent video(final Context context, final File file) {
+	final Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+	intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+	return intent;
 }
 ```
 
 ### wifi settings
 
 ```java
-public static Intent wifi(Context context) {
-    return new Intent(Settings.ACTION_WIFI_SETTINGS);
+public static Intent wifi(final Context context) {
+	return new Intent(Settings.ACTION_WIFI_SETTINGS);
 }
 ```
 
@@ -801,11 +801,11 @@ Logcat
 
 ```java
 public static void clear() {
-    try {
-        Runtime.getRuntime().exec(new String[] { "logcat", "-c" });
-    } catch (Exception e) {
-        Log.e(TAG, "Failed to clear logcat " + e.getMessage());
-    }
+	try {
+		Runtime.getRuntime().exec(new String[] { "logcat", "-c" });
+	} catch (Exception e) {
+		Log.e(TAG, "Failed to clear logcat " + e.getMessage());
+	}
 }
 ```
 
@@ -819,21 +819,21 @@ public static void clear() {
 /**
  * @param args More intel on <a href="http://developer.android.com/tools/debugging/debugging-log.html">developer.android.com</a>
  */
-public static String logcat(String[] args) {
-    try {
-        final Process pr = Runtime.getRuntime().exec(args != null ? args : new String[] { "logcat", "-d" });
-        final BufferedReader br = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-        final String separator = System.getProperty("line.separator");
-        final StringBuilder log = new StringBuilder();
-        String line;
-        while ((line = br.readLine()) != null) {
-            log.append(line).append(separator);
-        }
-        return log.toString();
-    } catch (Exception e) {
-        Log.e(TAG, "Failed to capture logcat " + e.getMessage());
-        return null;
-    }
+public static String logcat(final String[] args) {
+	try {
+		final Process process = Runtime.getRuntime().exec(args != null ? args : new String[] { "logcat", "-d" });
+		final BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		final String separator = System.getProperty("line.separator");
+		final StringBuilder sb = new StringBuilder();
+		String line;
+		while ((line = br.readLine()) != null) {
+			sb.append(line).append(separator);
+		}
+		return sb.toString();
+	} catch (Exception e) {
+		Log.e(TAG, "Failed to capture logcat " + e.getMessage());
+		return null;
+	}
 }
 ```
 
@@ -847,9 +847,9 @@ Network
 ```
 
 ```java
-public static boolean isOnline(Context context) {
-    final NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
-    return (ni != null && ni.isAvailable() && ni.isConnected());
+public static boolean isOnline(final Context context) {
+	final NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+	return (ni != null && ni.isAvailable() && ni.isConnected());
 }
 ```
 
@@ -859,9 +859,9 @@ public static boolean isOnline(Context context) {
  * {@link ConnectivityManager#TYPE_ETHERNET},
  * {@link ConnectivityManager#TYPE_MOBILE}, ...
  */
-public static boolean isOnline(Context context, int type) {
-    final NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(type);
-    return ni != null && ni.isAvailable() && ni.isConnected();
+public static boolean isOnline(final Context context, final int type) {
+	final NetworkInfo ni = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getNetworkInfo(type);
+	return ni != null && ni.isAvailable() && ni.isConnected();
 }
 ```
 
@@ -872,8 +872,8 @@ public static boolean isOnline(Context context, int type) {
 ```
 
 ```java
-public static boolean enableWifi(Context context, boolean enable) {
-    return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(enable);
+public static boolean enableWifi(final Context context, final boolean enable) {
+	return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(enable);
 }
 ```
 
@@ -901,37 +901,37 @@ public static float px2dp(final float px, final Context context) {
 ### show soft keyboard
 
 ```java
-public static void showSoftKeyboard(View view, ResultReceiver resultReceiver) {
-    final Configuration config = view.getContext().getResources().getConfiguration();
-    if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
-        final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (resultReceiver != null) {
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT, resultReceiver);
-        } else {
-            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
-        }
-    }
+public static void showSoftKeyboard(final View view, final ResultReceiver resultReceiver) {
+	final Configuration config = view.getContext().getResources().getConfiguration();
+	if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
+		final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (resultReceiver != null) {
+			imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT, resultReceiver);
+		} else {
+			imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+		}
+	}
 }
 ```
 
 ### hide soft keyboard
 
 ```java
-public static void hideSoftKeyboard(View view) {
-    final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+public static void hideSoftKeyboard(final View view) {
+	final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+	imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 }
 ```
 
 ### keep screen on
 
 ```java
-public static void keepScreenOn(Activity activity, boolean keep) {
-    if (keep) {
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    } else {
-        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-    }
+public static void keepScreenOn(final Activity activity, final boolean keep) {
+	if (keep) {
+		activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	} else {
+		activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+	}
 }
 ```
 
@@ -951,9 +951,9 @@ public static Drawable getColoredDrawable(final Resources res, final int drawabl
 
 ```java
 public static Bitmap captureView(final View view) {
-    final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
-    view.draw(new Canvas(bitmap));
-    return bitmap;
+	final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+	view.draw(new Canvas(bitmap));
+	return bitmap;
 }
 ```
 
@@ -1011,10 +1011,10 @@ public static String bytes2size(final long size) {
 
 ```java
 <style name="Widget.ActionBar.ActivityIndicator" parent="...">
-    <item name="android:minWidth">48dp</item>
-    <item name="android:maxWidth">48dp</item>
-    <item name="android:minHeight">32dp</item>
-    <item name="android:maxHeight">32dp</item>
+	<item name="android:minWidth">48dp</item>
+	<item name="android:maxWidth">48dp</item>
+	<item name="android:minHeight">32dp</item>
+	<item name="android:maxHeight">32dp</item>
 </style>
 ```
 
