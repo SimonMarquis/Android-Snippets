@@ -71,6 +71,10 @@
     * [capture view](#capture-view)
     * [capture layout](#capture-layout)
     * [increase hit rect](#increase-hit-rect)
+  * [Others](#others)
+    * [bytes2size](#bytes2size)
+    * [small indeterminate progress bar](#small-indeterminate-progress-bar)
+    * [ActionBar height](#actionbar-height)
 
 
 ADB (Android Debug Bridge)
@@ -985,5 +989,41 @@ public static void increaseHitRect(final int top, final int left, final int bott
 			parent.setTouchDelegate(new TouchDelegate(r, delegate));
 		}
 	});
+}
+```
+
+Others
+------
+
+### bytes2size
+
+```java
+public static String bytes2size(final long size) {
+	if (size <= 0)
+		return "0";
+	final String[] units = new String[] { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
+	final int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+	return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+}
+```
+
+### small indeterminate progress bar
+
+```java
+<style name="Widget.ActionBar.ActivityIndicator" parent="...">
+    <item name="android:minWidth">48dp</item>
+    <item name="android:maxWidth">48dp</item>
+    <item name="android:minHeight">32dp</item>
+    <item name="android:maxHeight">32dp</item>
+</style>
+```
+
+### ActionBar height
+
+```java
+public static int getActionBarHeight(final Activity activity) {
+	final TypedValue value = new TypedValue();
+	activity.getTheme().resolveAttribute(android.R.attr.actionBarSize, value, true);
+	return activity.getResources().getDimensionPixelSize(value.resourceId);
 }
 ```
