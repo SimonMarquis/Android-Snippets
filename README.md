@@ -61,6 +61,16 @@
   * [Network](#network)
     * [is online](#is-online)
     * [enable wifi](#enable-wifi)
+  * [UI](#ui)
+    * [dp2px](#dp2px)
+    * [px2dp](#px2dp)
+    * [show soft keyboard](#show-soft-keyboard)
+    * [hide soft keyboard](#hide-soft-keyboard)
+    * [keep screen on](#keep-screen-on)
+    * [colored drawable](#colored-drawable)
+    * [capture view](#capture-view)
+    * [capture layout](#capture-layout)
+    * [increase hit rect](#increase-hit-rect)
 
 
 ADB (Android Debug Bridge)
@@ -860,5 +870,120 @@ public static boolean isOnline(Context context, int type) {
 ```java
 public static boolean enableWifi(Context context, boolean enable) {
     return ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).setWifiEnabled(enable);
+}
+```
+
+UI
+---
+
+### dp2px
+
+```java
+public static float dp2px(final float dp, final Context context) {
+	final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+	return dp * metrics.densityDpi / 160f;
+}
+```
+
+### px2dp
+
+```java
+public static float px2dp(final float px, final Context context) {
+	final DisplayMetrics metrics = context.getResources().getDisplayMetrics();
+	return px / (metrics.densityDpi / 160f);
+}
+```
+
+### show soft keyboard
+
+```java
+public static void showSoftKeyboard(View view, ResultReceiver resultReceiver) {
+    final Configuration config = view.getContext().getResources().getConfiguration();
+    if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
+        final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (resultReceiver != null) {
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT, resultReceiver);
+        } else {
+            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT);
+        }
+    }
+}
+```
+
+### hide soft keyboard
+
+```java
+public static void hideSoftKeyboard(View view) {
+    final InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+}
+```
+
+### keep screen on
+
+```java
+public static void keepScreenOn(Activity activity, boolean keep) {
+    if (keep) {
+        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    } else {
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+}
+```
+
+### colored drawable
+
+Introduced by @dlew on [his blog](http://blog.danlew.net/2014/08/18/fast-android-asset-theming-with-colorfilter/)
+
+```java
+public static Drawable getColoredDrawable(final Resources res, final int drawableResId, final int color) {
+	final Drawable drawable = res.getDrawable(drawableResId);
+	drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+	return drawable;
+}
+```
+
+### capture view
+
+```java
+public static Bitmap captureView(final View view) {
+    final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+    view.draw(new Canvas(bitmap));
+    return bitmap;
+}
+```
+
+### capture layout
+
+```java
+public static Bitmap captureLayout(final Context context, final int width, final int height, final int layoutResId) {
+    final Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+	final Canvas canvas = new Canvas(bitmap);
+	final LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	final View view = inflater.inflate(layoutResId, null);
+	view.setDrawingCacheEnabled(true);
+	view.measure(MeasureSpec.makeMeasureSpec(canvas.getWidth(), MeasureSpec.EXACTLY), MeasureSpec.makeMeasureSpec(canvas.getHeight(), MeasureSpec.EXACTLY));
+	view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+	canvas.drawBitmap(view.getDrawingCache(), 0, 0, new Paint());
+	return bitmap;
+}
+```
+
+### increase hit rect
+
+```java
+public static void increaseHitRect(final int top, final int left, final int bottom, final int right, final View delegate) {
+	final View parent = (View) delegate.getParent();
+	parent.post(new Runnable() {
+		public void run() {
+			final Rect r = new Rect();
+			delegate.getHitRect(r);
+			r.top -= top;
+			r.left -= left;
+			r.bottom += bottom;
+			r.right += right;
+			parent.setTouchDelegate(new TouchDelegate(r, delegate));
+		}
+	});
 }
 ```
