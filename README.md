@@ -1032,7 +1032,7 @@ public static int getActionBarHeight(final Activity activity) {
 
 ### ListView padding
 
-```
+```xml
 <ListView
     ...
     android:clipToPadding="false"
