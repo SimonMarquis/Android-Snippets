@@ -75,6 +75,8 @@
     * [bytes2size](#bytes2size)
     * [small indeterminate progress bar](#small-indeterminate-progress-bar)
     * [ActionBar height](#actionbar-height)
+    * [ListView padding](#listview-padding)
+  * [Online tools](#online-tools)
 
 
 ADB (Android Debug Bridge)
@@ -1027,3 +1029,31 @@ public static int getActionBarHeight(final Activity activity) {
 	return activity.getResources().getDimensionPixelSize(value.resourceId);
 }
 ```
+
+### ListView padding
+
+```
+<ListView
+    ...
+    android:clipToPadding="false"
+    android:scrollbarStyle="outsideOverlay" />
+```
+
+Online tools
+------------
+
+[Android Asset Studio](#http://romannurik.github.io/AndroidAssetStudio) by @romannurik
+
+[Android Asset Studio for Material Design](#http://shreyasachar.github.io/AndroidAssetStudio) by @shreyasachar
+
+[Gradle, Please](#http://gradleplease.appspot.com) by @broady
+
+[parcelabler](#http://www.parcelabler.com) by @dallasgutauckis
+
+[gitignore.io](#https://www.gitignore.io)
+
+[Android Arsenal](#http://android-arsenal.com)
+
+[Cheat Sheet for Graphic Designer](#http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers)
+
+[SystemUiHelper.java](#https://gist.github.com/chrisbanes/73de18faffca571f7292) by @chrisbanes
