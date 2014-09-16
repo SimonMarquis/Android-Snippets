@@ -158,8 +158,10 @@
 <li><a href="#bytes2size">bytes2size</a></li>
 <li><a href="#small-indeterminate-progress-bar">small indeterminate progress bar</a></li>
 <li><a href="#actionbar-height">ActionBar height</a></li>
+<li><a href="#listview-padding">ListView padding</a></li>
 </ul>
 </li>
+<li><a href="#online-tools">Online tools</a></li>
 </ul><h2>
 <a name="adb-android-debug-bridge" class="anchor" href="#adb-android-debug-bridge"><span class="octicon octicon-link"></span></a>ADB (Android Debug Bridge)</h2>
 
@@ -286,7 +288,7 @@ adb shell am broadcast -a your.custom.ACTION -n your.package.name/.YourBroadcast
 <h3>
 <a name="nope" class="anchor" href="#nope"><span class="octicon octicon-link"></span></a>nope</h3>
 
-<p>Introduced by <a href="https://github.com/cyrilmottier" class="user-mention">@cyrilmottier</a> on <a href="https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy">Google+</a></p>
+<p>Introduced by <a href="https://github.com/cyrilmottier">@cyrilmottier</a> on <a href="https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy">Google+</a></p>
 
 <div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">ObjectAnimator</span> <span class="nf">nope</span><span class="o">(</span><span class="kd">final</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">delta</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">PropertyValuesHolder</span> <span class="n">pvhTranslateX</span> <span class="o">=</span> <span class="n">PropertyValuesHolder</span><span class="o">.</span><span class="na">ofKeyframe</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">TRANSLATION_X</span><span class="o">,</span> <span class="n">Keyframe</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">0</span><span class="o">),</span>
@@ -323,7 +325,7 @@ adb shell am broadcast -a your.custom.ACTION -n your.package.name/.YourBroadcast
 <h3>
 <a name="tada" class="anchor" href="#tada"><span class="octicon octicon-link"></span></a>tada</h3>
 
-<p>Introduced by <a href="https://github.com/cyrilmottier" class="user-mention">@cyrilmottier</a> on <a href="https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy">Google+</a></p>
+<p>Introduced by <a href="https://github.com/cyrilmottier">@cyrilmottier</a> on <a href="https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy">Google+</a></p>
 
 <div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">ObjectAnimator</span> <span class="nf">tada</span><span class="o">(</span><span class="kd">final</span> <span class="n">View</span> <span class="n">view</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">float</span> <span class="n">shakeFactor</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">PropertyValuesHolder</span> <span class="n">pvhScaleX</span> <span class="o">=</span> <span class="n">PropertyValuesHolder</span><span class="o">.</span><span class="na">ofKeyframe</span><span class="o">(</span><span class="n">View</span><span class="o">.</span><span class="na">SCALE_X</span><span class="o">,</span> <span class="n">Keyframe</span><span class="o">.</span><span class="na">ofFloat</span><span class="o">(</span><span class="mi">0</span><span class="n">f</span><span class="o">,</span> <span class="mi">1</span><span class="n">f</span><span class="o">),</span>
@@ -1018,7 +1020,7 @@ adb shell am broadcast -a your.custom.ACTION -n your.package.name/.YourBroadcast
 <h3>
 <a name="colored-drawable" class="anchor" href="#colored-drawable"><span class="octicon octicon-link"></span></a>colored drawable</h3>
 
-<p>Introduced by <a href="https://github.com/dlew" class="user-mention">@dlew</a> on <a href="http://blog.danlew.net/2014/08/18/fast-android-asset-theming-with-colorfilter/">his blog</a></p>
+<p>Introduced by <a href="https://github.com/dlew">@dlew</a> on <a href="http://blog.danlew.net/2014/08/18/fast-android-asset-theming-with-colorfilter/">his blog</a></p>
 
 <div class="highlight highlight-java"><pre><span class="kd">public</span> <span class="kd">static</span> <span class="n">Drawable</span> <span class="nf">getColoredDrawable</span><span class="o">(</span><span class="kd">final</span> <span class="n">Resources</span> <span class="n">res</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">drawableResId</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
     <span class="kd">final</span> <span class="n">Drawable</span> <span class="n">drawable</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getDrawable</span><span class="o">(</span><span class="n">drawableResId</span><span class="o">);</span>
@@ -1107,6 +1109,34 @@ adb shell am broadcast -a your.custom.ACTION -n your.package.name/.YourBroadcast
     <span class="k">return</span> <span class="n">activity</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getDimensionPixelSize</span><span class="o">(</span><span class="n">value</span><span class="o">.</span><span class="na">resourceId</span><span class="o">);</span>
 <span class="o">}</span>
 </pre></div>
+
+<h3>
+<a name="listview-padding" class="anchor" href="#listview-padding"><span class="octicon octicon-link"></span></a>ListView padding</h3>
+
+<div class="highlight highlight-xml"><pre><span class="nt">&lt;ListView</span>
+    <span class="err">...</span>
+    <span class="na">android:clipToPadding=</span><span class="s">"false"</span>
+    <span class="na">android:scrollbarStyle=</span><span class="s">"outsideOverlay"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<h2>
+<a name="online-tools" class="anchor" href="#online-tools"><span class="octicon octicon-link"></span></a>Online tools</h2>
+
+<p><a href="http://romannurik.github.io/AndroidAssetStudio">Android Asset Studio</a> by <a href="https://github.com/romannurik">@romannurik</a></p>
+
+<p><a href="http://shreyasachar.github.io/AndroidAssetStudio">Android Asset Studio for Material Design</a> by <a href="https://github.com/shreyasachar">@shreyasachar</a></p>
+
+<p><a href="http://gradleplease.appspot.com">Gradle, Please</a> by <a href="https://github.com/broady">@broady</a></p>
+
+<p><a href="http://www.parcelabler.com">parcelabler</a> by <a href="https://github.com/dallasgutauckis">@dallasgutauckis</a></p>
+
+<p><a href="https://www.gitignore.io">gitignore.io</a></p>
+
+<p><a href="http://android-arsenal.com">Android Arsenal</a></p>
+
+<p><a href="http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers">Cheat Sheet for Graphic Designer</a></p>
+
+<p><a href="https://gist.github.com/chrisbanes/73de18faffca571f7292">SystemUiHelper.java</a> by <a href="https://github.com/chrisbanes">@chrisbanes</a></p>
       </section>
     </div>
     <footer>
