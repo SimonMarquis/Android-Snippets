@@ -193,7 +193,7 @@ public static ObjectAnimator flash(final View view, final float alphaFactor) {
 
 ### nope
 
-Introduced by @cyrilmottier on [Google+](https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy)
+Introduced by [@cyrilmottier](https://github.com/cyrilmottier) on [Google+](https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy)
 
 ```java
 public static ObjectAnimator nope(final View view, final int delta) {
@@ -230,7 +230,7 @@ public static ObjectAnimator spring(final View view, final float springFactor) {
 
 ### tada
 
-Introduced by @cyrilmottier on [Google+](https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy)
+Introduced by [@cyrilmottier](https://github.com/cyrilmottier) on [Google+](https://plus.google.com/+CyrilMottier/posts/FABaJhRMCuy)
 
 ```java
 public static ObjectAnimator tada(final View view, final float shakeFactor) {
@@ -939,7 +939,7 @@ public static void keepScreenOn(final Activity activity, final boolean keep) {
 
 ### colored drawable
 
-Introduced by @dlew on [his blog](http://blog.danlew.net/2014/08/18/fast-android-asset-theming-with-colorfilter/)
+Introduced by [@dlew](https://github.com/dlew) on [his blog](http://blog.danlew.net/2014/08/18/fast-android-asset-theming-with-colorfilter/)
 
 ```java
 public static Drawable getColoredDrawable(final Resources res, final int drawableResId, final int color) {
@@ -1042,18 +1042,18 @@ public static int getActionBarHeight(final Activity activity) {
 Online tools
 ------------
 
-[Android Asset Studio](#http://romannurik.github.io/AndroidAssetStudio) by @romannurik
+[Android Asset Studio](http://romannurik.github.io/AndroidAssetStudio) by [@romannurik](https://github.com/romannurik)
 
-[Android Asset Studio for Material Design](#http://shreyasachar.github.io/AndroidAssetStudio) by @shreyasachar
+[Android Asset Studio for Material Design](http://shreyasachar.github.io/AndroidAssetStudio) by [@shreyasachar](https://github.com/shreyasachar)
 
-[Gradle, Please](#http://gradleplease.appspot.com) by @broady
+[Gradle, Please](http://gradleplease.appspot.com) by [@broady](https://github.com/broady)
 
-[parcelabler](#http://www.parcelabler.com) by @dallasgutauckis
+[parcelabler](http://www.parcelabler.com) by [@dallasgutauckis](https://github.com/dallasgutauckis)
 
-[gitignore.io](#https://www.gitignore.io)
+[gitignore.io](https://www.gitignore.io)
 
-[Android Arsenal](#http://android-arsenal.com)
+[Android Arsenal](http://android-arsenal.com)
 
-[Cheat Sheet for Graphic Designer](#http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers)
+[Cheat Sheet for Graphic Designer](http://petrnohejl.github.io/Android-Cheatsheet-For-Graphic-Designers)
 
-[SystemUiHelper.java](#https://gist.github.com/chrisbanes/73de18faffca571f7292) by @chrisbanes
+[SystemUiHelper.java](https://gist.github.com/chrisbanes/73de18faffca571f7292) by [@chrisbanes](https://github.com/chrisbanes)
