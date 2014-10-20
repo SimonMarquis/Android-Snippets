@@ -813,10 +813,6 @@ public static void clear() {
 
 ### capture
 
-```xml
-<uses-permission android:name="android.permission.READ_LOGS" />
-```
-
 ```java
 /**
  * @param args More intel on <a href="http://developer.android.com/tools/debugging/debugging-log.html">developer.android.com</a>
