@@ -116,10 +116,13 @@ echo
 ### screen capture
 
 ```bash
-name="/sdcard/`date +%Y.%m.%d\ -\ %H.%M.%S`.png" && \
-	adb shell screencap -p $name && \
-	adb pull $name && \
-	adb shell rm $name
+file=$(date +%Y.%m.%d-%H.%M.%S).png \
+	&& path="/sdcard/$file" \
+	&& adb shell screencap -p "$path" \
+	&& adb pull "$path" \
+	&& adb shell rm "$path" \
+	&& echo "Screenshot saved at $(pwd)/$file" \
+	|| echo "Screenshot failed"
 ```
 
 ### screen record
@@ -129,10 +132,17 @@ name="/sdcard/`date +%Y.%m.%d\ -\ %H.%M.%S`.png" && \
  * **time limit**  `--time-limit <time>`
 
 ```bash
-name="/sdcard/`date +%Y.%m.%d\ -\ %H.%M.%S`.mp4" && \
-	adb shell screenrecord --bit-rate 20000000 --time-limit 30 $name && \
-	adb pull $name && \
-	adb shell rm $name
+file=$(date +%Y.%m.%d-%H.%M.%S).mp4 \
+	&& path="/sdcard/$file" \
+	&& time=${1-30} \
+	&& bitrate=${2-20000000} \
+	&& adb shell screenrecord --time-limit "$time" --bit-rate "$bitrate" "$path" \
+	&& echo "Success" \
+	&& echo "Uploading..." \
+	&& adb pull "$path" \
+	&& adb shell rm "$path" \
+	&& echo "Screencapture saved at $(pwd)/$file" \
+	|| echo "Screencapture failed"
 ```
 
 ### run monkey
