@@ -87,9 +87,9 @@ ADB (Android Debug Bridge)
 ```bash
 #!/bin/bash
 if [[ ! $PATH_TO_ADB ]]; then
-	PATH_TO_ADB=`which adb`
+	PATH_TO_ADB=$(which adb)
 fi
-
+ 
 if [[ ! $PATH_TO_ADB ]]; then
 	if [[ ! $ANDROID_HOME ]]; then
 		echo "Failed to determine path to adb; consider setting ANDROID_HOME to your SDK directory or PATH_TO_ADB to the path to ADB"
@@ -97,16 +97,20 @@ if [[ ! $PATH_TO_ADB ]]; then
 	fi
 	PATH_TO_ADB="$ANDROID_HOME/platform-tools/adb"
 fi
-
-devices=`$PATH_TO_ADB devices | grep -E "device\$" | cut -f1`
-
+ 
+devices=$($PATH_TO_ADB devices | grep -E "device\$" | cut -f1)
+ 
+echo
+echo " MODEL           | PRODUCT         | SDK          | SERIAL"
+echo '-----------------|-----------------|--------------|----------------------'
 for device in $devices; do
-	model=$($PATH_TO_ADB -s $device shell getprop ro.product.model | tr -d '\r')
-	version=$($PATH_TO_ADB -s $device shell getprop ro.build.version.release | tr -d '\r')
-	sdk=$($PATH_TO_ADB -s $device shell getprop ro.build.version.sdk | tr -d '\r')
-
-	printf '%-20s [%5s ~ %2s]: %-20s \n' "$device" "$version" "$sdk" "$model"
+	model=$($PATH_TO_ADB -s "$device" shell getprop ro.product.model | tr -d '\r')
+	version=$($PATH_TO_ADB -s "$device" shell getprop ro.build.version.release | tr -d '\r')
+	sdk=$($PATH_TO_ADB -s "$device" shell getprop ro.build.version.sdk | tr -d '\r')
+	product=$($PATH_TO_ADB -s "$device" shell getprop ro.build.product | tr -d '\r')
+	printf ' %-15s | %-15s | [%-5s ~ %2s] | %-20s \n' "$model" "$product" "$version" "$sdk" "$device"
 done
+echo
 ```
 
 ### screen capture
